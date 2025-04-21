@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>TECH BY HUZII - Login & AI Image Generator</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>TECH BY HUZII - AI Image Generator</title>
   <style>
     * {
       margin: 0;
@@ -71,120 +71,54 @@
   </style>
 </head>
 <body>
+  <div class="container">
+    <img src="logo.png" alt="Tech by Huzii Logo" class="logo" />
+    <h1>TECH BY HUZII</h1>
 
-<!-- Signup -->
-<div class="container" id="signupContainer">
-  <img src="logo.png" alt="Tech by Huzii Logo" class="logo" />
-  <h1>Signup - TECH BY HUZII</h1>
-  <input type="text" id="username" placeholder="Enter Username" />
-  <input type="email" id="email" placeholder="Enter Gmail" />
-  <input type="password" id="password" placeholder="Enter Password" />
-  <input type="password" id="confirmPassword" placeholder="Confirm Password" />
-  <button onclick="signUp()">Signup</button>
-</div>
+    <input type="text" id="prompt" placeholder="Enter image prompt...">
 
-<!-- Login -->
-<div class="container" id="loginContainer" style="display: none;">
-  <img src="logo.png" alt="Tech by Huzii Logo" class="logo" />
-  <h1>Login - TECH BY HUZII</h1>
-  <input type="text" id="loginUsername" placeholder="Enter Username" />
-  <input type="password" id="loginPassword" placeholder="Enter Password" />
-  <input type="text" id="loginEmail" placeholder="Enter Gmail" />
-  <button onclick="login()">Login</button>
-</div>
+    <select id="ratio">
+      <option value="1:1">Square (1:1)</option>
+      <option value="9:16">TikTok (9:16)</option>
+      <option value="16:9">YouTube (16:9)</option>
+    </select>
 
-<!-- Image Generator -->
-<div class="container" id="imageGeneratorContainer" style="display: none;">
-  <h1>AI Image Generator</h1>
-  <input type="text" id="prompt" placeholder="Enter image prompt..." />
-  <select id="ratio">
-    <option value="1:1">Square (1:1)</option>
-    <option value="9:16">TikTok (9:16)</option>
-    <option value="16:9">YouTube (16:9)</option>
-  </select>
-  <button onclick="generateImages()">Generate</button>
-  <div class="images" id="imageContainer"></div>
-</div>
+    <button onclick="generateImages()">Generate</button>
 
-<script>
-  // Signup
-  function signUp() {
-    const username = document.getElementById("username").value;
-    const email = document.getElementById("email").value;
-    const password = document.getElementById("password").value;
-    const confirmPassword = document.getElementById("confirmPassword").value;
+    <div class="images" id="imageContainer"></div>
+  </div>
 
-    if (!email.includes("@gmail.com")) return alert("Please enter a valid Gmail.");
-    if (password !== confirmPassword) return alert("Passwords do not match!");
+  <script>
+    async function generateImages() {
+      const prompt = document.getElementById("prompt").value;
+      const ratio = document.getElementById("ratio").value;
+      if (!prompt) return alert("Please enter a prompt.");
 
-    localStorage.setItem("username", username);
-    localStorage.setItem("email", email);
-    localStorage.setItem("password", password);
-    localStorage.setItem("isLoggedIn", "true");
+      document.getElementById("imageContainer").innerHTML = "Generating...";
 
-    alert("Signup successful!");
-    document.getElementById("signupContainer").style.display = "none";
-    document.getElementById("loginContainer").style.display = "block";
-  }
+      const fullPrompt = `${prompt}, aspect ratio ${ratio}`;
+      const apiUrl = `https://botfather.cloud/Apis/ImgGen/client.php?inputText=${encodeURIComponent(fullPrompt)}`;
 
-  // Login
-  function login() {
-    const username = document.getElementById("loginUsername").value;
-    const password = document.getElementById("loginPassword").value;
-    const email = document.getElementById("loginEmail").value;
+      try {
+        const response = await fetch(apiUrl);
+        const result = await response.json();
 
-    const storedUsername = localStorage.getItem("username");
-    const storedPassword = localStorage.getItem("password");
-    const storedEmail = localStorage.getItem("email");
-
-    if (username === storedUsername && password === storedPassword && email === storedEmail) {
-      alert("Login successful!");
-      document.getElementById("loginContainer").style.display = "none";
-      document.getElementById("imageGeneratorContainer").style.display = "block";
-    } else {
-      alert("Invalid credentials!");
-    }
-  }
-
-  // Image Generation
-  async function generateImages() {
-    const prompt = document.getElementById("prompt").value;
-    const ratio = document.getElementById("ratio").value;
-    if (!prompt) return alert("Please enter a prompt.");
-
-    document.getElementById("imageContainer").innerHTML = "Generating...";
-
-    const apiUrl = `https://botfather.cloud/Apis/ImgGen/client.php?inputText=${encodeURIComponent(prompt)}&ratio=${ratio}`;
-    try {
-      const response = await fetch(apiUrl);
-      const result = await response.json();
-
-      if (result && result.output_url) {
-        const container = document.getElementById("imageContainer");
-        container.innerHTML = "";
-        for (let i = 0; i < 4; i++) {
-          const img = document.createElement("img");
-          img.src = result.output_url;
-          img.onclick = () => window.open(img.src);
-          container.appendChild(img);
+        if (result && result.output_url) {
+          const container = document.getElementById("imageContainer");
+          container.innerHTML = "";
+          for (let i = 0; i < 4; i++) {
+            const img = document.createElement("img");
+            img.src = result.output_url;
+            img.onclick = () => window.open(img.src);
+            container.appendChild(img);
+          }
+        } else {
+          document.getElementById("imageContainer").innerHTML = "Image generation failed.";
         }
-      } else {
-        document.getElementById("imageContainer").innerHTML = "Image generation failed.";
+      } catch (err) {
+        document.getElementById("imageContainer").innerHTML = "API error.";
       }
-    } catch (err) {
-      document.getElementById("imageContainer").innerHTML = "API error.";
     }
-  }
-
-  // Auto login if already saved
-  window.onload = () => {
-    if (localStorage.getItem("isLoggedIn") === "true") {
-      document.getElementById("signupContainer").style.display = "none";
-      document.getElementById("loginContainer").style.display = "none";
-      document.getElementById("imageGeneratorContainer").style.display = "block";
-    }
-  };
-</script>
-
+  </script>
 </body>
 </html>
