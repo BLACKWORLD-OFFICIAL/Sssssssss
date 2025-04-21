@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>TECH BY HUZII - AI Image Generator</title>
+  <title>TECH BY HUZII - Login & AI Image Generator</title>
   <style>
     * {
       margin: 0;
@@ -77,12 +77,47 @@
       border: 1px solid #00ffff;
     }
 
+    .form-container {
+      width: 100%;
+      max-width: 400px;
+      margin: 20px auto;
+    }
+
+    .form-container input {
+      width: 100%;
+      margin: 10px 0;
+    }
   </style>
 </head>
 <body>
-  <div class="container">
+
+  <!-- Signup Page -->
+  <div class="container" id="signupContainer">
     <img src="logo.png" alt="Tech by Huzii Logo" class="logo" />
-    <h1>TECH BY HUZII</h1>
+    <h1>Signup - TECH BY HUZII</h1>
+    <div class="form-container">
+      <input type="text" id="username" placeholder="Enter Username" />
+      <input type="email" id="email" placeholder="Enter Gmail" />
+      <input type="password" id="password" placeholder="Enter Password" />
+      <input type="password" id="confirmPassword" placeholder="Confirm Password" />
+      <button onclick="signUp()">Signup</button>
+    </div>
+  </div>
+
+  <!-- Login Page -->
+  <div class="container" id="loginContainer" style="display: none;">
+    <img src="logo.png" alt="Tech by Huzii Logo" class="logo" />
+    <h1>Login - TECH BY HUZII</h1>
+    <div class="form-container">
+      <input type="text" id="loginUsername" placeholder="Enter Username" />
+      <input type="password" id="loginPassword" placeholder="Enter Password" />
+      <button onclick="login()">Login</button>
+    </div>
+  </div>
+
+  <!-- Image Generator Page (Visible after login) -->
+  <div class="container" id="imageGeneratorContainer" style="display: none;">
+    <h1>TECH BY HUZII - AI Image Generator</h1>
     <input type="text" id="prompt" placeholder="Enter image prompt..." />
     <select id="ratio">
       <option value="1:1">Square (1:1)</option>
@@ -92,10 +127,49 @@
     <button onclick="generateImages()">Generate</button>
     <div class="images" id="imageContainer"></div>
   </div>
+
   <script>
+    // Sign Up Function
+    function signUp() {
+      const username = document.getElementById("username").value;
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
+      const confirmPassword = document.getElementById("confirmPassword").value;
+
+      if (password !== confirmPassword) {
+        return alert("Passwords do not match!");
+      }
+
+      localStorage.setItem("username", username);
+      localStorage.setItem("email", email);
+      localStorage.setItem("password", password);
+
+      alert("Signup successful! Please login.");
+      document.getElementById("signupContainer").style.display = "none";
+      document.getElementById("loginContainer").style.display = "block";
+    }
+
+    // Login Function
+    function login() {
+      const username = document.getElementById("loginUsername").value;
+      const password = document.getElementById("loginPassword").value;
+
+      const storedUsername = localStorage.getItem("username");
+      const storedPassword = localStorage.getItem("password");
+
+      if (username === storedUsername && password === storedPassword) {
+        alert("Login successful!");
+        document.getElementById("loginContainer").style.display = "none";
+        document.getElementById("imageGeneratorContainer").style.display = "block";
+      } else {
+        alert("Invalid username or password!");
+      }
+    }
+
+    // Image Generation Function
     async function generateImages() {
-      const prompt = document.getElementById('prompt').value;
-      const ratio = document.getElementById('ratio').value;
+      const prompt = document.getElementById("prompt").value;
+      const ratio = document.getElementById("ratio").value;
       if (!prompt) return alert("Please enter a prompt.");
 
       document.getElementById("imageContainer").innerHTML = "Generating...";
@@ -103,16 +177,16 @@
       const apiUrl = `https://botfather.cloud/Apis/ImgGen/client.php?inputText=${encodeURIComponent(prompt)}&ratio=${ratio}`;
 
       const response = await fetch(apiUrl, {
-        method: 'GET',
+        method: "GET",
         headers: {
-          'Content-Type': 'application/json'
-        }
+          "Content-Type": "application/json",
+        },
       });
 
       const result = await response.json();
 
       if (result && result.output_url) {
-        const img = document.createElement('img');
+        const img = document.createElement("img");
         img.src = result.output_url;
 
         const container = document.getElementById("imageContainer");
@@ -125,23 +199,6 @@
       } else {
         document.getElementById("imageContainer").innerHTML = "Error generating images.";
       }
-    }
-
-    // Auto-fill logic (Example using localStorage)
-    window.onload = () => {
-      const savedUsername = localStorage.getItem('username');
-      const savedPassword = localStorage.getItem('password');
-      
-      if (savedUsername && savedPassword) {
-        document.getElementById('username').value = savedUsername;
-        document.getElementById('password').value = savedPassword;
-      }
-    };
-
-    // Function to save credentials on successful login (Example)
-    function saveCredentials(username, password) {
-      localStorage.setItem('username', username);
-      localStorage.setItem('password', password);
     }
   </script>
 </body>
