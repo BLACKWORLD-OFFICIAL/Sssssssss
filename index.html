@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TECH BY HUZII - AI Image Generator</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    body {
+      background: black;
+      color: #00ffff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    .container {
+      background: #101010;
+      border: 2px solid #00ffff;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 0 20px #00ffff;
+      width: 100%;
+      max-width: 500px;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    img.logo {
+      display: block;
+      width: 120px;
+      margin: 0 auto 20px;
+      border-radius: 10px;
+    }
+
+    input, select, button {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      background: #111;
+      border: 1px solid #00ffff;
+      color: #00ffff;
+      border-radius: 8px;
+    }
+
+    button {
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background-color: #00ffff;
+      color: #000;
+    }
+
+    .images {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    .images img {
+      width: 100%;
+      border-radius: 10px;
+      border: 1px solid #00ffff;
+    }
+
+  </style>
+</head>
+<body>
+  <div class="container">
+    <img src="logo.png" alt="Tech by Huzii Logo" class="logo" />
+    <h1>TECH BY HUZII</h1>
+    <input type="text" id="prompt" placeholder="Enter image prompt..." />
+    <select id="ratio">
+      <option value="1:1">Square (1:1)</option>
+      <option value="9:16">TikTok (9:16)</option>
+      <option value="16:9">YouTube (16:9)</option>
+    </select>
+    <button onclick="generateImages()">Generate</button>
+    <div class="images" id="imageContainer"></div>
+  </div>
+  <script>
+    async function generateImages() {
+      const prompt = document.getElementById('prompt').value;
+      const ratio = document.getElementById('ratio').value;
+      if (!prompt) return alert("Please enter a prompt.");
+
+      document.getElementById("imageContainer").innerHTML = "Generating...";
+
+      const apiUrl = `https://botfather.cloud/Apis/ImgGen/client.php?inputText=${encodeURIComponent(prompt)}&ratio=${ratio}`;
+
+      const response = await fetch(apiUrl, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+
+      const result = await response.json();
+
+      if (result && result.output_url) {
+        const img = document.createElement('img');
+        img.src = result.output_url;
+
+        const container = document.getElementById("imageContainer");
+        container.innerHTML = "";
+        for (let i = 0; i < 4; i++) {
+          const clone = img.cloneNode();
+          clone.onclick = () => window.open(clone.src);
+          container.appendChild(clone);
+        }
+      } else {
+        document.getElementById("imageContainer").innerHTML = "Error generating images.";
+      }
+    }
+
+    // Auto-fill logic (Example using localStorage)
+    window.onload = () => {
+      const savedUsername = localStorage.getItem('username');
+      const savedPassword = localStorage.getItem('password');
+      
+      if (savedUsername && savedPassword) {
+        document.getElementById('username').value = savedUsername;
+        document.getElementById('password').value = savedPassword;
+      }
+    };
+
+    // Function to save credentials on successful login (Example)
+    function saveCredentials(username, password) {
+      localStorage.setItem('username', username);
+      localStorage.setItem('password', password);
+    }
+  </script>
+</body>
+</html>
