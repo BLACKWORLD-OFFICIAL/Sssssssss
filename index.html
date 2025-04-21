@@ -2,145 +2,79 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>TECH BY HUZII | AI Image Generator</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>4X Image Generator</title>
+  <script defer src="script.js"></script>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap');
-
     body {
-      margin: 0;
-      padding: 0;
-      font-family: 'Orbitron', sans-serif;
-      background: radial-gradient(circle at top, #0f0f1c, #1a1a2e);
-      color: white;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      overflow: hidden;
+      background: #0d0d0d;
+      color: #fff;
     }
-
-    .container {
-      background: rgba(0, 0, 0, 0.6);
-      padding: 2rem;
-      border-radius: 20px;
-      box-shadow: 0 0 40px #00f2ff;
-      width: 95%;
-      max-width: 500px;
-      text-align: center;
+    .neon-input {
+      background: #1f1f1f;
+      border: 2px solid #0ff;
+      box-shadow: 0 0 10px #0ff;
     }
-
-    img.logo {
-      width: 150px;
-      margin-bottom: 1rem;
-    }
-
-    input, button {
-      width: 100%;
-      padding: 0.8rem;
-      margin: 0.5rem 0;
-      border-radius: 10px;
-      border: none;
-      font-size: 1rem;
-    }
-
-    input {
-      background: #111;
-      color: white;
-    }
-
-    button {
-      background: #00f2ff;
+    .neon-button {
+      background: #00f0ff;
       color: black;
       font-weight: bold;
-      cursor: pointer;
+      box-shadow: 0 0 15px #00f0ff;
     }
-
-    button:hover {
-      background: #03d0dc;
-    }
-
-    #result img {
-      margin: 1rem 0.5rem;
+    img {
       border-radius: 10px;
-      width: 45%;
-      box-shadow: 0 0 15px #00f2ff;
-    }
-
-    #result a {
-      display: inline-block;
-      margin: 0.5rem;
-      color: #00f2ff;
-      text-decoration: none;
-      font-size: 0.9rem;
+      box-shadow: 0 0 15px #0ff;
     }
   </style>
 </head>
-<body>
-  <div class="container">
-    <img src="logo.png" alt="TECH BY HUZII" class="logo">
-    <h2 id="heading">Login to Generate AI Images</h2>
-    <div id="auth">
-      <input type="text" id="username" placeholder="Username" required />
-      <input type="password" id="password" placeholder="Password" required />
-      <button onclick="login()">Login</button>
-      <button onclick="signup()">Sign Up</button>
-    </div>
-    <div id="generator" style="display:none;">
-      <input type="text" id="textInput" placeholder="Enter your prompt..." />
-      <button onclick="generateImages()">Generate Images</button>
-      <div id="result"></div>
-    </div>
+<body class="flex flex-col items-center justify-center min-h-screen p-4">
+  <h1 class="text-3xl mb-6 font-bold text-cyan-400">Neon 4X Image Generator</h1>
+
+  <div class="w-full max-w-md">
+    <input id="inputText" type="text" placeholder="Type your image idea..." class="w-full p-3 mb-4 neon-input rounded"/>
+    <button id="generateBtn" class="w-full p-3 neon-button rounded">Generate 4 Images</button>
   </div>
 
+  <div id="output" class="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-3xl"></div>
+
   <script>
-    function login() {
-      const user = document.getElementById('username').value;
-      const pass = document.getElementById('password').value;
-      if (localStorage.getItem(user) === pass) {
-        startGenerator(user);
-      } else {
-        alert('Invalid login!');
+    document.getElementById('generateBtn').addEventListener('click', () => {
+      const inputText = document.getElementById('inputText').value.trim();
+      const output = document.getElementById('output');
+      output.innerHTML = "Generating...";
+
+      if (!inputText) {
+        output.innerHTML = "Please enter some text.";
+        return;
       }
-    }
 
-    function signup() {
-      const user = document.getElementById('username').value;
-      const pass = document.getElementById('password').value;
-      if (user && pass) {
-        if (localStorage.getItem(user)) {
-          alert('Username already exists. Try login.');
-        } else {
-          localStorage.setItem(user, pass);
-          alert('Signup successful! Now login.');
-        }
-      } else {
-        alert('Please enter both username and password');
-      }
-    }
+      const encodedInput = encodeURIComponent(inputText);
+      const urls = [
+        `https://botfather.cloud/Apis/ImgGen/client.php?inputText=${encodedInput}&n=1`,
+        `https://botfather.cloud/Apis/ImgGen/client.php?inputText=${encodedInput}&n=2`,
+        `https://botfather.cloud/Apis/ImgGen/client.php?inputText=${encodedInput}&n=3`,
+        `https://botfather.cloud/Apis/ImgGen/client.php?inputText=${encodedInput}&n=4`
+      ];
 
-    function startGenerator(user) {
-      document.getElementById('auth').style.display = 'none';
-      document.getElementById('generator').style.display = 'block';
-      document.getElementById('heading').innerText = `Welcome, ${user}`;
-    }
+      output.innerHTML = "";
 
-    function generateImages() {
-      const input = document.getElementById('textInput').value.trim();
-      if (!input) return;
-      const container = document.getElementById('result');
-      container.innerHTML = '';
-
-      for (let i = 0; i < 4; i++) {
-        const url = `https://botfather.cloud/Apis/ImgGen/client.php?inputText=${encodeURIComponent(input + ' variation ' + i)}`;
-        container.innerHTML += `
-          <div>
-            <img src="${url}" alt="Image ${i+1}">
-            <a href="${url}" download>Download Image ${i+1}</a>
-          </div>
-        `;
-      }
-    }
+      urls.forEach(url => {
+        fetch(url)
+          .then(res => res.blob())
+          .then(blob => {
+            const imgURL = URL.createObjectURL(blob);
+            const img = document.createElement('img');
+            img.src = imgURL;
+            img.className = "w-full";
+            output.appendChild(img);
+          })
+          .catch(err => {
+            console.error(err);
+            output.innerHTML = "Error generating one or more images.";
+          });
+      });
+    });
   </script>
 </body>
 </html>
