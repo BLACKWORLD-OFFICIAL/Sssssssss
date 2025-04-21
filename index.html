@@ -40,7 +40,7 @@
       margin: 0 auto 20px;
       border-radius: 10px;
     }
-    input, select, button {
+    input, button {
       width: 100%;
       padding: 10px;
       margin: 10px 0;
@@ -76,13 +76,6 @@
     <h1>TECH BY HUZII</h1>
 
     <input type="text" id="prompt" placeholder="Enter image prompt...">
-
-    <select id="ratio">
-      <option value="1:1">Square (1:1)</option>
-      <option value="9:16">TikTok (9:16)</option>
-      <option value="16:9">YouTube (16:9)</option>
-    </select>
-
     <button onclick="generateImages()">Generate</button>
 
     <div class="images" id="imageContainer"></div>
@@ -91,13 +84,11 @@
   <script>
     async function generateImages() {
       const prompt = document.getElementById("prompt").value;
-      const ratio = document.getElementById("ratio").value;
       if (!prompt) return alert("Please enter a prompt.");
 
       document.getElementById("imageContainer").innerHTML = "Generating...";
 
-      const fullPrompt = `${prompt}, aspect ratio ${ratio}`;
-      const apiUrl = `https://botfather.cloud/Apis/ImgGen/client.php?inputText=${encodeURIComponent(fullPrompt)}`;
+      const apiUrl = `https://botfather.cloud/Apis/ImgGen/client.php?inputText=${encodeURIComponent(prompt)}`;
 
       try {
         const response = await fetch(apiUrl);
