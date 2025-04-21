@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>4X Image Generator</title>
+  <title>Neon Image Generator</title>
   <script defer src="script.js"></script>
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
   <style>
@@ -29,19 +29,27 @@
   </style>
 </head>
 <body class="flex flex-col items-center justify-center min-h-screen p-4">
-  <h1 class="text-3xl mb-6 font-bold text-cyan-400">Neon 4X Image Generator</h1>
+  <h1 class="text-3xl mb-6 font-bold text-cyan-400">Neon Image Generator</h1>
 
   <div class="w-full max-w-md">
-    <input id="inputText" type="text" placeholder="Type your image idea..." class="w-full p-3 mb-4 neon-input rounded"/>
-    <button id="generateBtn" class="w-full p-3 neon-button rounded">Generate 4 Images</button>
+    <input id="inputText" type="text" placeholder="Enter your idea..." class="w-full p-3 mb-4 neon-input rounded"/>
+    
+    <select id="ratioSelect" class="w-full p-3 mb-4 neon-input rounded">
+      <option value="1">YouTube (16:9)</option>
+      <option value="2">TikTok (9:16)</option>
+      <option value="3">Square (1:1)</option>
+    </select>
+
+    <button id="generateBtn" class="w-full p-3 neon-button rounded">Generate Image</button>
   </div>
 
-  <div id="output" class="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-3xl"></div>
+  <div id="output" class="mt-6 w-full max-w-md flex flex-col items-center"></div>
 
   <script>
     document.getElementById('generateBtn').addEventListener('click', () => {
       const inputText = document.getElementById('inputText').value.trim();
       const output = document.getElementById('output');
+      const ratio = document.getElementById('ratioSelect').value;
       output.innerHTML = "Generating...";
 
       if (!inputText) {
@@ -49,31 +57,34 @@
         return;
       }
 
+      let format;
+      switch (ratio) {
+        case "1":
+          format = "16:9";  // YouTube
+          break;
+        case "2":
+          format = "9:16";  // TikTok
+          break;
+        case "3":
+          format = "1:1";   // Square
+          break;
+        default:
+          format = "16:9";
+      }
+
       const encodedInput = encodeURIComponent(inputText);
-      const urls = [
-        `https://botfather.cloud/Apis/ImgGen/client.php?inputText=${encodedInput}&n=1`,
-        `https://botfather.cloud/Apis/ImgGen/client.php?inputText=${encodedInput}&n=2`,
-        `https://botfather.cloud/Apis/ImgGen/client.php?inputText=${encodedInput}&n=3`,
-        `https://botfather.cloud/Apis/ImgGen/client.php?inputText=${encodedInput}&n=4`
-      ];
+      const apiUrl = `https://botfather.cloud/Apis/ImgGen/client.php?inputText=${encodedInput}&format=${format}`;
 
-      output.innerHTML = "";
-
-      urls.forEach(url => {
-        fetch(url)
-          .then(res => res.blob())
-          .then(blob => {
-            const imgURL = URL.createObjectURL(blob);
-            const img = document.createElement('img');
-            img.src = imgURL;
-            img.className = "w-full";
-            output.appendChild(img);
-          })
-          .catch(err => {
-            console.error(err);
-            output.innerHTML = "Error generating one or more images.";
-          });
-      });
+      fetch(apiUrl)
+        .then(res => res.blob())
+        .then(blob => {
+          const imgURL = URL.createObjectURL(blob);
+          output.innerHTML = `<img src="${imgURL}" class="w-full" />`;
+        })
+        .catch(err => {
+          output.innerHTML = "Error generating image.";
+          console.error(err);
+        });
     });
   </script>
 </body>
