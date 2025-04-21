@@ -2,112 +2,143 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>TECH BY HUZII - AI Image Generator</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TECH BY HUZII | AI Image Generator</title>
   <style>
-    * {
+    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap');
+
+    body {
       margin: 0;
       padding: 0;
-      box-sizing: border-box;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    }
-    body {
-      background: black;
-      color: #00ffff;
+      font-family: 'Orbitron', sans-serif;
+      background: radial-gradient(circle at top, #0f0f1c, #1a1a2e);
+      color: white;
       display: flex;
       justify-content: center;
       align-items: center;
-      flex-direction: column;
-      min-height: 100vh;
-      padding: 20px;
+      height: 100vh;
+      overflow: hidden;
     }
+
     .container {
-      background: #101010;
-      border: 2px solid #00ffff;
-      padding: 30px;
-      border-radius: 15px;
-      box-shadow: 0 0 20px #00ffff;
-      width: 100%;
+      background: rgba(0, 0, 0, 0.6);
+      padding: 2rem;
+      border-radius: 20px;
+      box-shadow: 0 0 40px #00f2ff;
+      width: 95%;
       max-width: 500px;
-    }
-    h1 {
       text-align: center;
-      margin-bottom: 20px;
     }
+
     img.logo {
-      display: block;
-      width: 120px;
-      margin: 0 auto 20px;
-      border-radius: 10px;
+      width: 150px;
+      margin-bottom: 1rem;
     }
+
     input, button {
       width: 100%;
-      padding: 10px;
-      margin: 10px 0;
-      background: #111;
-      border: 1px solid #00ffff;
-      color: #00ffff;
-      border-radius: 8px;
-    }
-    button {
-      cursor: pointer;
-      transition: 0.3s;
-    }
-    button:hover {
-      background-color: #00ffff;
-      color: #000;
-    }
-    .images {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
-      margin-top: 20px;
-    }
-    .images img {
-      width: 100%;
+      padding: 0.8rem;
+      margin: 0.5rem 0;
       border-radius: 10px;
-      border: 1px solid #00ffff;
+      border: none;
+      font-size: 1rem;
+    }
+
+    input {
+      background: #111;
+      color: white;
+    }
+
+    button {
+      background: #00f2ff;
+      color: black;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #03d0dc;
+    }
+
+    #result img {
+      margin: 1rem 0.5rem;
+      border-radius: 10px;
+      width: 45%;
+      box-shadow: 0 0 15px #00f2ff;
+    }
+
+    #result a {
+      display: inline-block;
+      margin: 0.5rem;
+      color: #00f2ff;
+      text-decoration: none;
+      font-size: 0.9rem;
     }
   </style>
 </head>
 <body>
   <div class="container">
-    <img src="logo.png" alt="Tech by Huzii Logo" class="logo" />
-    <h1>TECH BY HUZII</h1>
-
-    <input type="text" id="prompt" placeholder="Enter image prompt...">
-    <button onclick="generateImages()">Generate</button>
-
-    <div class="images" id="imageContainer"></div>
+    <img src="logo.png" alt="TECH BY HUZII" class="logo">
+    <h2 id="heading">Login to Generate AI Images</h2>
+    <div id="auth">
+      <input type="text" id="username" placeholder="Username" required />
+      <input type="password" id="password" placeholder="Password" required />
+      <button onclick="login()">Login</button>
+      <button onclick="signup()">Sign Up</button>
+    </div>
+    <div id="generator" style="display:none;">
+      <input type="text" id="textInput" placeholder="Enter your prompt..." />
+      <button onclick="generateImages()">Generate Images</button>
+      <div id="result"></div>
+    </div>
   </div>
 
   <script>
-    async function generateImages() {
-      const prompt = document.getElementById("prompt").value;
-      if (!prompt) return alert("Please enter a prompt.");
+    function login() {
+      const user = document.getElementById('username').value;
+      const pass = document.getElementById('password').value;
+      if (localStorage.getItem(user) === pass) {
+        startGenerator(user);
+      } else {
+        alert('Invalid login!');
+      }
+    }
 
-      document.getElementById("imageContainer").innerHTML = "Generating...";
-
-      const apiUrl = `https://botfather.cloud/Apis/ImgGen/client.php?inputText=${encodeURIComponent(prompt)}`;
-
-      try {
-        const response = await fetch(apiUrl);
-        const result = await response.json();
-
-        if (result && result.output_url) {
-          const container = document.getElementById("imageContainer");
-          container.innerHTML = "";
-          for (let i = 0; i < 4; i++) {
-            const img = document.createElement("img");
-            img.src = result.output_url;
-            img.onclick = () => window.open(img.src);
-            container.appendChild(img);
-          }
+    function signup() {
+      const user = document.getElementById('username').value;
+      const pass = document.getElementById('password').value;
+      if (user && pass) {
+        if (localStorage.getItem(user)) {
+          alert('Username already exists. Try login.');
         } else {
-          document.getElementById("imageContainer").innerHTML = "Image generation failed.";
+          localStorage.setItem(user, pass);
+          alert('Signup successful! Now login.');
         }
-      } catch (err) {
-        document.getElementById("imageContainer").innerHTML = "API error.";
+      } else {
+        alert('Please enter both username and password');
+      }
+    }
+
+    function startGenerator(user) {
+      document.getElementById('auth').style.display = 'none';
+      document.getElementById('generator').style.display = 'block';
+      document.getElementById('heading').innerText = `Welcome, ${user}`;
+    }
+
+    function generateImages() {
+      const input = document.getElementById('textInput').value.trim();
+      if (!input) return;
+      const container = document.getElementById('result');
+      container.innerHTML = '';
+
+      for (let i = 0; i < 4; i++) {
+        const url = `https://botfather.cloud/Apis/ImgGen/client.php?inputText=${encodeURIComponent(input + ' variation ' + i)}`;
+        container.innerHTML += `
+          <div>
+            <img src="${url}" alt="Image ${i+1}">
+            <a href="${url}" download>Download Image ${i+1}</a>
+          </div>
+        `;
       }
     }
   </script>
