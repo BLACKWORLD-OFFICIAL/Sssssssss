@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>TECH BY HUZII - Login & AI Image Generator</title>
   <style>
-    /* Styling */
     * {
       margin: 0;
       padding: 0;
@@ -73,34 +72,30 @@
 </head>
 <body>
 
-<!-- Signup Page -->
+<!-- Signup -->
 <div class="container" id="signupContainer">
   <img src="logo.png" alt="Tech by Huzii Logo" class="logo" />
   <h1>Signup - TECH BY HUZII</h1>
-  <div class="form-container">
-    <input type="text" id="username" placeholder="Enter Username" />
-    <input type="email" id="email" placeholder="Enter Gmail" />
-    <input type="password" id="password" placeholder="Enter Password" />
-    <input type="password" id="confirmPassword" placeholder="Confirm Password" />
-    <button onclick="signUp()">Signup</button>
-  </div>
+  <input type="text" id="username" placeholder="Enter Username" />
+  <input type="email" id="email" placeholder="Enter Gmail" />
+  <input type="password" id="password" placeholder="Enter Password" />
+  <input type="password" id="confirmPassword" placeholder="Confirm Password" />
+  <button onclick="signUp()">Signup</button>
 </div>
 
-<!-- Login Page -->
+<!-- Login -->
 <div class="container" id="loginContainer" style="display: none;">
   <img src="logo.png" alt="Tech by Huzii Logo" class="logo" />
   <h1>Login - TECH BY HUZII</h1>
-  <div class="form-container">
-    <input type="text" id="loginUsername" placeholder="Enter Username" />
-    <input type="password" id="loginPassword" placeholder="Enter Password" />
-    <input type="text" id="loginEmail" placeholder="Enter Email" />
-    <button onclick="login()">Login</button>
-  </div>
+  <input type="text" id="loginUsername" placeholder="Enter Username" />
+  <input type="password" id="loginPassword" placeholder="Enter Password" />
+  <input type="text" id="loginEmail" placeholder="Enter Gmail" />
+  <button onclick="login()">Login</button>
 </div>
 
-<!-- Image Generator Page -->
+<!-- Image Generator -->
 <div class="container" id="imageGeneratorContainer" style="display: none;">
-  <h1>TECH BY HUZII - AI Image Generator</h1>
+  <h1>AI Image Generator</h1>
   <input type="text" id="prompt" placeholder="Enter image prompt..." />
   <select id="ratio">
     <option value="1:1">Square (1:1)</option>
@@ -112,32 +107,27 @@
 </div>
 
 <script>
-  // Sign Up Function
+  // Signup
   function signUp() {
     const username = document.getElementById("username").value;
     const email = document.getElementById("email").value;
     const password = document.getElementById("password").value;
     const confirmPassword = document.getElementById("confirmPassword").value;
 
-    if (password !== confirmPassword) {
-      return alert("Passwords do not match!");
-    }
-
-    // Send Gmail Verification Code to email (Fake for demo)
-    const verificationCode = Math.floor(100000 + Math.random() * 900000); // Fake verification code
-    alert(`Verification Code sent to ${email}: ${verificationCode}`);
+    if (!email.includes("@gmail.com")) return alert("Please enter a valid Gmail.");
+    if (password !== confirmPassword) return alert("Passwords do not match!");
 
     localStorage.setItem("username", username);
     localStorage.setItem("email", email);
     localStorage.setItem("password", password);
-    localStorage.setItem("verificationCode", verificationCode);
+    localStorage.setItem("isLoggedIn", "true");
 
-    alert("Signup successful! Please verify your email and login.");
+    alert("Signup successful!");
     document.getElementById("signupContainer").style.display = "none";
     document.getElementById("loginContainer").style.display = "block";
   }
 
-  // Login Function
+  // Login
   function login() {
     const username = document.getElementById("loginUsername").value;
     const password = document.getElementById("loginPassword").value;
@@ -146,26 +136,17 @@
     const storedUsername = localStorage.getItem("username");
     const storedPassword = localStorage.getItem("password");
     const storedEmail = localStorage.getItem("email");
-    const verificationCode = localStorage.getItem("verificationCode");
 
     if (username === storedUsername && password === storedPassword && email === storedEmail) {
       alert("Login successful!");
-
-      // Ask user to enter verification code
-      const codeEntered = prompt(`Enter the verification code sent to ${storedEmail}:`);
-      if (codeEntered == verificationCode) {
-        localStorage.setItem("isLoggedIn", "true");
-        document.getElementById("loginContainer").style.display = "none";
-        document.getElementById("imageGeneratorContainer").style.display = "block";
-      } else {
-        alert("Invalid verification code!");
-      }
+      document.getElementById("loginContainer").style.display = "none";
+      document.getElementById("imageGeneratorContainer").style.display = "block";
     } else {
-      alert("Invalid username, password, or email!");
+      alert("Invalid credentials!");
     }
   }
 
-  // Image Generation Function
+  // Image Generation
   async function generateImages() {
     const prompt = document.getElementById("prompt").value;
     const ratio = document.getElementById("ratio").value;
@@ -174,32 +155,35 @@
     document.getElementById("imageContainer").innerHTML = "Generating...";
 
     const apiUrl = `https://botfather.cloud/Apis/ImgGen/client.php?inputText=${encodeURIComponent(prompt)}&ratio=${ratio}`;
+    try {
+      const response = await fetch(apiUrl);
+      const result = await response.json();
 
-    const response = await fetch(apiUrl, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-
-    const result = await response.json();
-
-    if (result && result.output_url) {
-      const img = document.createElement("img");
-      img.src = result.output_url;
-
-      const container = document.getElementById("imageContainer");
-      container.innerHTML = "";
-      for (let i = 0; i < 4; i++) {
-        const clone = img.cloneNode();
-        clone.onclick = () => window.open(clone.src);
-        container.appendChild(clone);
+      if (result && result.output_url) {
+        const container = document.getElementById("imageContainer");
+        container.innerHTML = "";
+        for (let i = 0; i < 4; i++) {
+          const img = document.createElement("img");
+          img.src = result.output_url;
+          img.onclick = () => window.open(img.src);
+          container.appendChild(img);
+        }
+      } else {
+        document.getElementById("imageContainer").innerHTML = "Image generation failed.";
       }
-    } else {
-      document.getElementById("imageContainer").innerHTML = "Error generating images.";
+    } catch (err) {
+      document.getElementById("imageContainer").innerHTML = "API error.";
     }
   }
 
+  // Auto login if already saved
+  window.onload = () => {
+    if (localStorage.getItem("isLoggedIn") === "true") {
+      document.getElementById("signupContainer").style.display = "none";
+      document.getElementById("loginContainer").style.display = "none";
+      document.getElementById("imageGeneratorContainer").style.display = "block";
+    }
+  };
 </script>
 
 </body>
