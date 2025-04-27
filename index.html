@@ -3,22 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BALOCH EARNING PLATFORM</title>
-    <link href="https://fonts.googleapis.com/css2?family=Tektur:wght@400;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>BalochX Investment Hub</title>
     <style>
         :root {
-            --neon-green: #00ff9d;
-            --neon-blue: #0066ff;
-            --dark-bg: #0a0a1a;
-            --text-white: #ffffff;
+            --cyber-blue: #00f3ff;
+            --matrix-green: #00ff9d;
+            --dark-space: #0a0a1a;
+            --star-white: #ffffff;
+            --neon-purple: #bc13fe;
         }
-        body {
-            font-family: 'Roboto', sans-serif;
-            background: var(--dark-bg);
-            color: var(--text-white);
+
+        * {
             margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Courier New', monospace;
+        }
+
+        body {
+            background: var(--dark-space);
+            color: var(--star-white);
             min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Glowing Border Effect */
+        .cyber-border {
+            position: relative;
+            padding: 3px;
+            border-radius: 10px;
+            background: linear-gradient(45deg, 
+                var(--cyber-blue), 
+                var(--matrix-green), 
+                var(--neon-purple));
+            box-shadow: 0 0 15px var(--cyber-blue);
         }
 
         /* Auth Container */
@@ -27,377 +45,447 @@
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            background: radial-gradient(circle at center, #0a0a1a, #000);
+            background: radial-gradient(circle at center, 
+                #0a0a1a 0%, 
+                #000 100%);
         }
 
-        .container {
-            background: rgba(10, 20, 40, 0.85);
+        .cyber-card {
+            background: #000;
             padding: 2rem;
-            border-radius: 15px;
-            border: 2px solid var(--neon-green);
-            box-shadow: 0 0 20px rgba(0, 255, 157, 0.3);
+            border-radius: 10px;
             width: 90%;
-            max-width: 450px;
+            max-width: 400px;
+            position: relative;
+            overflow: hidden;
         }
 
-        .tabs {
-            display: flex;
+        .cyber-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, 
+                transparent, 
+                var(--cyber-blue), 
+                transparent);
+            animation: cyberGlow 4s linear infinite;
+        }
+
+        @keyframes cyberGlow {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .auth-content {
+            position: relative;
+            z-index: 1;
+            background: #000;
+            padding: 2rem;
+            border-radius: 8px;
+        }
+
+        .auth-tabs {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
             gap: 1rem;
-            margin-bottom: 1.5rem;
+            margin-bottom: 2rem;
         }
 
-        .tab {
-            flex: 1;
+        .auth-tab {
             padding: 1rem;
-            background: rgba(0, 0, 0, 0.3);
+            text-align: center;
+            background: #111;
             border: none;
-            border-radius: 8px;
-            color: var(--neon-green);
+            color: var(--matrix-green);
             cursor: pointer;
-            transition: all 0.3s;
+            transition: 0.3s;
+            clip-path: polygon(10% 0, 100% 0, 90% 100%, 0 100%);
         }
 
-        .tab.active {
-            background: linear-gradient(45deg, var(--neon-green), var(--neon-blue));
-            color: white;
+        .auth-tab.active {
+            background: var(--matrix-green);
+            color: #000;
+            text-shadow: 0 0 10px rgba(0,255,157,0.5);
         }
 
-        .tab-content {
-            display: none;
-        }
-
-        .tab-content.active {
-            display: block;
-        }
-
-        input {
+        .auth-input {
             width: 100%;
             padding: 1rem;
-            margin: 0.8rem 0;
-            background: rgba(0, 0, 0, 0.5);
-            border: 1px solid var(--neon-green);
-            color: white;
-            border-radius: 8px;
+            margin: 1rem 0;
+            background: #111;
+            border: 1px solid var(--cyber-blue);
+            color: var(--star-white);
+            font-size: 1.1rem;
         }
 
-        button {
-            width: 100%;
-            padding: 1rem;
-            background: linear-gradient(45deg, var(--neon-green), var(--neon-blue));
-            border: none;
-            border-radius: 8px;
-            color: black;
-            font-weight: bold;
-            cursor: pointer;
-            margin-top: 1rem;
-        }
-
-        /* Plans Section */
-        .plans-section {
+        /* Main Dashboard */
+        .dashboard {
             display: none;
             padding: 2rem;
-            font-family: 'Tektur', sans-serif;
         }
 
+        .cyber-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            border-bottom: 2px solid var(--cyber-blue);
+            margin-bottom: 2rem;
+        }
+
+        .balance-display {
+            font-size: 1.5rem;
+            text-shadow: 0 0 10px var(--cyber-blue);
+        }
+
+        .nav-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .nav-item {
+            padding: 1.5rem;
+            background: #111;
+            border: 1px solid var(--neon-purple);
+            text-align: center;
+            cursor: pointer;
+            transition: 0.3s;
+            clip-path: polygon(10% 0, 100% 0, 90% 100%, 0 100%);
+        }
+
+        .nav-item:hover {
+            background: var(--neon-purple);
+            transform: scale(1.05);
+        }
+
+        /* Investment Plans */
         .plans-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 1.5rem;
-            max-width: 1200px;
-            margin: 0 auto;
+            margin-top: 2rem;
         }
 
         .plan-card {
-            background: rgba(10, 20, 40, 0.7);
-            border: 1px solid var(--neon-green);
-            border-radius: 10px;
+            background: linear-gradient(45deg, #111, #222);
             padding: 1.5rem;
-            transition: transform 0.3s;
+            border: 1px solid var(--cyber-blue);
+            position: relative;
+            overflow: hidden;
         }
 
-        .plan-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 5px 15px rgba(0, 255, 157, 0.3);
+        .plan-card::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, 
+                transparent, 
+                var(--cyber-blue), 
+                transparent);
+            animation: cyberGlow 4s linear infinite;
+            opacity: 0.3;
         }
 
-        .plan-name {
-            color: var(--neon-green);
+        .plan-title {
+            color: var(--matrix-green);
+            font-size: 1.2rem;
             margin-bottom: 1rem;
+            text-shadow: 0 0 10px rgba(0,255,157,0.3);
         }
 
-        .withdrawal-note {
-            color: var(--neon-blue);
-            font-size: 0.9rem;
+        /* Transaction List */
+        .transaction-list {
+            margin-top: 2rem;
+        }
+
+        .transaction-item {
+            padding: 1rem;
             margin: 1rem 0;
-            padding: 0.5rem;
-            background: rgba(0, 102, 255, 0.1);
-            border-radius: 5px;
+            background: #111;
+            border-left: 4px solid var(--neon-purple);
+            position: relative;
         }
 
-        /* Payment Modal */
-        .payment-modal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.8);
-            display: none;
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-        }
-
-        .payment-content {
-            background: var(--dark-bg);
-            padding: 2rem;
-            border-radius: 15px;
-            border: 2px solid var(--neon-green);
-            width: 90%;
+        /* Withdraw Form */
+        .withdraw-form {
             max-width: 500px;
+            margin: 2rem auto;
         }
 
-        .payment-details p {
-            margin: 0.7rem 0; /* Adjusted margin */
-            font-size: 0.9rem; /* Slightly smaller font */
+        /* Admin Panel */
+        .admin-panel {
+            background: #111;
+            padding: 2rem;
+            margin-top: 2rem;
         }
 
-        .highlight {
-            color: var(--neon-green);
-            font-weight: bold;
-        }
-
-        .modal-buttons {
-            display: flex;
-            gap: 0.5rem; /* Adjusted gap */
-            margin-top: 1rem; /* Adjusted margin */
-        }
-
-        .modal-buttons button {
-            padding: 0.7rem 1rem; /* Smaller padding for buttons */
-            font-size: 0.9rem; /* Smaller font for buttons */
-        }
-
-        .payment-modal input {
-            width: calc(50% - 0.5rem); /* Make inputs smaller and side by side with a small gap */
-            display: inline-block;
-            padding: 0.7rem; /* Smaller padding */
-            margin: 0.5rem 0.25rem; /* Smaller margin */
-            font-size: 0.9rem; /* Smaller font */
-        }
-
-        /* Footer */
-        .footer {
-            text-align: center;
-            padding: 2rem 1rem; /* Adjusted padding */
-            margin-top: 2rem; /* Adjusted margin */
-            border-top: 1px solid var(--neon-green);
-        }
-
-        .social-links {
-            display: flex;
-            justify-content: center;
-            gap: 1rem; /* Adjusted gap */
-            margin: 1rem 0; /* Adjusted margin */
-        }
-
-        .social-link {
-            color: var(--neon-green);
-            text-decoration: none;
-            font-size: 1.2rem; /* Slightly smaller social icons */
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .plans-grid {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
-
 </head>
 <body>
+    <!-- Authentication Section -->
     <div class="auth-container">
-        <div class="container">
-            <div class="tabs">
-                <button class="tab active" onclick="showTab('login', event)">Login</button>
-                <button class="tab" onclick="showTab('signup', event)">Sign Up</button>
-            </div><form id="loginForm" class="tab-content active">
-            <input type="text" placeholder="Username" required>
-            <input type="password" placeholder="Password" required>
-            <button type="submit">Login</button>
-        </form>
+        <div class="cyber-border">
+            <div class="cyber-card">
+                <div class="auth-content">
+                    <div class="auth-tabs">
+                        <button class="auth-tab active" onclick="switchAuthTab('login')">LOGIN</button>
+                        <button class="auth-tab" onclick="switchAuthTab('signup')">SIGNUP</button>
+                    </div>
 
-        <form id="signupForm" class="tab-content">
-            <input type="text" placeholder="Username" required>
-            <input type="email" placeholder="Email" required>
-            <input type="password" placeholder="Password" required>
-            <input type="password" placeholder="Confirm Password" required>
-            <button type="submit">Create Account</button>
-        </form>
-    </div>
-</div>
+                    <!-- Login Form -->
+                    <form id="loginForm" class="auth-form active">
+                        <input type="text" class="auth-input" placeholder="Cyber ID" required>
+                        <input type="password" class="auth-input" placeholder="Access Code" required>
+                        <button type="submit" class="auth-tab" style="width: 100%">INITIALIZE SYSTEM</button>
+                    </form>
 
-<section class="plans-section" id="plansPage">
-    <div class="plans-grid">
-        <div class="plan-card">
-            <h3 class="plan-name">SILVER PLAN</h3>
-            <p><strong>Investment:</strong> 2500 PKR</p>
-            <p><strong>Return:</strong> 5000 PKR</p>
-            <p><strong>Duration:</strong> 10 Days</p>
-            <p class="withdrawal-note">Withdrawals via Easypaisa/JazzCash</p>
-            <button onclick="showPayment('Silver', 2500)">Activate Plan</button>
-        </div>
-
-        <div class="plan-card">
-            <h3 class="plan-name">GOLD PLAN</h3>
-            <p><strong>Investment:</strong> 5000 PKR</p>
-            <p><strong>Return:</strong> 10000 PKR</p>
-            <p><strong>Duration:</strong> 10 Days</p>
-            <p class="withdrawal-note">Withdrawals via Easypaisa/JazzCash</p>
-            <button onclick="showPayment('Gold', 5000)">Activate Plan</button>
-        </div>
-
-        <div class="plan-card">
-            <h3 class="plan-name">PLATINUM PLAN</h3>
-            <p><strong>Investment:</strong> 10000 PKR</p>
-            <p><strong>Return:</strong> 20000 PKR</p>
-            <p><strong>Duration:</strong> 10 Days</p>
-            <p class="withdrawal-note">Withdrawals via Easypaisa/JazzCash</p>
-            <button onclick="showPayment('Platinum', 10000)">Activate Plan</button>
-        </div>
-
-        <div class="plan-card">
-            <h3 class="plan-name">DIAMOND PLAN</h3>
-            <p><strong>Investment:</strong> 20000 PKR</p>
-            <p><strong>Return:</strong> 40000 PKR</p>
-            <p><strong>Duration:</strong> 10 Days</p>
-            <p class="withdrawal-note">Withdrawals via Easypaisa/JazzCash</p>
-            <button onclick="showPayment('Diamond', 20000)">Activate Plan</button>
+                    <!-- Signup Form -->
+                    <form id="signupForm" class="auth-form">
+                        <input type="text" class="auth-input" placeholder="New Cyber ID" required>
+                        <input type="email" class="auth-input" placeholder="Neuralink Email" required>
+                        <input type="password" class="auth-input" placeholder="Encryption Key" required>
+                        <input type="password" class="auth-input" placeholder="Confirm Key" required>
+                        <button type="submit" class="auth-tab" style="width: 100%">CREATE PROFILE</button>
+                    </form>
+                </div>
+            </div>
         </div>
     </div>
 
-    <footer class="footer">
-        <h3>TRUSTED SINCE 3 YEARS</h3>
-        <div class="social-links">
-            <a href="https://wa.me/923407699974" class="social-link" target="_blank">
-                <i class="fab fa-whatsapp"></i>
-            </a>
-            <a href="https://t.me/TECHBYHUZII" class="social-link" target="_blank">
-                <i class="fab fa-telegram"></i>
-            </a>
-        </div>
-        <p>© 2023 BALOCH EARNING PLATFORM</p>
-    </footer>
-</section>
+    <!-- Main Dashboard -->
+    <div class="dashboard">
+        <header class="cyber-header">
+            <div class="balance-display">
+                CREDITS: <span id="balance">0</span> PKR
+            </div>
+            <div class="user-actions">
+                <button class="nav-item" onclick="logout()">TERMINATE SESSION</button>
+            </div>
+        </header>
 
-<div class="payment-modal" id="paymentModal">
-    <div class="payment-content">
-        <h2>PAYMENT INSTRUCTIONS</h2>
-        <div class="payment-details">
-            <p>Send payment to: <span class="highlight">03407699974</span> (Easypaisa)</p>
-            <p>Account Name: <span class="highlight">Shahnaz Bibi</span></p>
-            <p>Plan: <span id="selectedPlan">Silver Plan</span></p>
-            <p>Amount: <span id="planAmount">2500</span> PKR</p>
+        <div class="nav-grid">
+            <div class="nav-item" onclick="showSection('plans')">INVESTMENT PROTOCOLS</div>
+            <div class="nav-item" onclick="showSection('transactions')">TRANSACTION LOGS</div>
+            <div class="nav-item" onclick="showSection('withdraw')">CREDIT DRAIN</div>
+            <div class="nav-item" onclick="showSection('profile')">USER PROFILE</div>
+            <div class="nav-item" id="adminAccess" style="display: none">CONTROL PANEL</div>
         </div>
 
-        <input type="text" placeholder="Transaction ID" id="transactionId">
-        <input type="number" placeholder="Amount Sent" id="amountSent">
+        <!-- Investment Plans -->
+        <div id="plans" class="section active">
+            <div class="plans-grid">
+                <div class="cyber-border">
+                    <div class="plan-card">
+                        <h3 class="plan-title">QUANTUM PROTOCOL</h3>
+                        <p>INVESTMENT: 2,500 - 5,000 PKR</p>
+                        <p>RETURN: 200% IN 48H</p>
+                        <button class="nav-item" onclick="activatePlan('Quantum')">ENGAGE</button>
+                    </div>
+                </div>
 
-        <div class="modal-buttons">
-            <button onclick="submitPayment()">Confirm Payment</button>
-            <button onclick="closePayment()" style="background: transparent; border: 1px solid var(--neon-green); color: var(--neon-green);">Cancel</button>
+                <div class="cyber-border">
+                    <div class="plan-card">
+                        <h3 class="plan-title">NEURAL NETWORK</h3>
+                        <p>INVESTMENT: 5,000 - 10,000 PKR</p>
+                        <p>RETURN: 300% IN 72H</p>
+                        <button class="nav-item" onclick="activatePlan('Neural')">ENGAGE</button>
+                    </div>
+                </div>
+
+                <div class="cyber-border">
+                    <div class="plan-card">
+                        <h3 class="plan-title">HYPERDRIVE</h3>
+                        <p>INVESTMENT: 10,000+ PKR</p>
+                        <p>RETURN: 500% IN 96H</p>
+                        <button class="nav-item" onclick="activatePlan('Hyperdrive')">ENGAGE</button>
+                    </div>
+                </div>
+            </div>
         </div>
 
-        <p style="margin-top: 0.7rem; font-size: 0.9rem; color: var(--neon-green);">
-            If not activated within 10 minutes, contact: 03407699974
-        </p>
+        <!-- Transaction History -->
+        <div id="transactions" class="section">
+            <div class="transaction-list" id="transactionList">
+                <!-- Transactions will be populated here -->
+            </div>
+        </div>
+
+        <!-- Withdrawal Section -->
+        <div id="withdraw" class="section">
+            <div class="cyber-border">
+                <div class="withdraw-form">
+                    <input type="number" class="auth-input" placeholder="AMOUNT TO DRAIN">
+                    <button class="nav-item" onclick="requestWithdrawal()">INITIATE DRAIN</button>
+                    <div id="withdrawStatus" class="transaction-item"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Admin Panel -->
+        <div id="admin" class="section admin-panel">
+            <h3>SYSTEM CONTROL PANEL</h3>
+            <button class="nav-item" onclick="approveTransactions()">AUTHORIZE ALL</button>
+            <div id="pendingTransactions"></div>
+        </div>
     </div>
-</div>
 
-<script>
-    // User Management
-    let users = JSON.parse(localStorage.getItem('users')) || [];
-    let currentPlan = null;
-
-    // Tab Switching
-    function showTab(tabId, event) {
-        document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
-        document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
-
-        event.target.classList.add('active');
-        document.getElementById(tabId).classList.add('active');
-    }
-
-    // Signup
-    document.getElementById('signupForm').addEventListener('submit', function(e) {
-        e.preventDefault();
-        const username = this[0].value.trim();
-        const email = this[1].value.trim();
-        const password = this[2].value;
-        const confirmPassword = this[3].value;
-
-        if (users.some(user => user.username === username)) {
-            alert('Username already exists!');
-            return;
+    <script>
+        // System Core
+        let users = JSON.parse(localStorage.getItem('cyberUsers')) || [];
+        let currentUser = null;
+        
+        class CyberProfile {
+            constructor() {
+                this.balance = 0;
+                this.activeProtocol = "NONE";
+                this.transactionLog = [];
+                this.withdrawalQueue = [];
+                this.totalInvested = 0;
+                this.securityLevel = 1;
+            }
         }
 
-        if (password !== confirmPassword) {
-            alert('Passwords do not match!');
-            return;
+        // Authentication Protocol
+        function switchAuthTab(tab) {
+            document.querySelectorAll('.auth-form').forEach(f => f.classList.remove('active'));
+            document.querySelectorAll('.auth-tab').forEach(t => t.classList.remove('active'));
+            document.getElementById(tab + 'Form').classList.add('active');
+            event.target.classList.add('active');
         }
 
-        users.push({ username, email, password });
-        localStorage.setItem('users', JSON.stringify(users));
-        alert('Account created successfully!');
+        document.getElementById('signupForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const username = this[0].value;
+            if(users.some(u => u.username === username)) {
+                alert('PROFILE EXISTS IN DATABASE');
+                return;
+            }
+            
+            const newUser = {
+                username,
+                password: this[2].value,
+                data: new CyberProfile(),
+                clearanceLevel: username === 'ADMIN' ? 5 : 1
+            };
+            
+            users.push(newUser);
+            localStorage.setItem('cyberUsers', JSON.stringify(users));
+            alert('PROFILE INITIALIZED');
+            switchAuthTab('login');
+        });
 
-        // Switch to login tab
-        document.querySelector('.tab.active').classList.remove('active');
-        document.querySelector('.tab-content.active').classList.remove('active');
-        document.querySelector('[onclick*="login"]').classList.add('active');
-        document.getElementById('login').classList.add('active');
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const user = users.find(u => 
+                u.username === this[0].value && 
+                u.password === this[1].value
+            );
+            
+            if(user) {
+                currentUser = user;
+                document.querySelector('.auth-container').style.display = 'none';
+                document.querySelector('.dashboard').style.display = 'block';
+                if(user.clearanceLevel === 5) {
+                    document.getElementById('adminAccess').style.display = 'block';
+                }
+                updateInterface();
+            } else {
+                alert('ACCESS DENIED');
+            }
+        });
 
-        this.reset();
-    });
-
-    // Login
-    document.getElementById('loginForm').addEventListener('submit', function(e) {
-        e.preventDefault();
-        const username = this[0].value.trim();
-        const password = this[1].value;
-
-        const user = users.find(u => u.username === username && u.password === password);
-        if (user) {
-            document.querySelector('.auth-container').style.display = 'none';
-            document.getElementById('plansPage').style.display = 'block';
-        } else {
-            alert('Invalid credentials!');
+        // Investment Protocol
+        function activatePlan(protocol) {
+            const amount = parseFloat(prompt(`ENTER CREDITS FOR ${protocol} PROTOCOL:`));
+            if(amount < 2500) {
+                alert('MINIMUM CREDITS REQUIRED: 2500 PKR');
+                return;
+            }
+            
+            currentUser.data.transactionLog.push({
+                type: 'INVESTMENT',
+                protocol,
+                amount,
+                timestamp: new Date().toLocaleString(),
+                status: 'ACTIVE'
+            });
+            
+            currentUser.data.totalInvested += amount;
+            updateInterface();
+            alert(`PROTOCOL ${protocol} ENGAGED`);
         }
-    });
 
-    // Payment System
-    function showPayment(planName, amount) {
-        currentPlan = { planName, amount };
-        document.getElementById('selectedPlan').textContent = planName + ' Plan';
-        document.getElementById('planAmount').textContent = amount;
-        document.getElementById('paymentModal').style.display = 'flex';
-    }
-
-    function closePayment() {
-        document.getElementById('paymentModal').style.display = 'none';
-    }
-
-    function submitPayment() {
-        const transactionId = document.getElementById('transactionId').value;
-        const amountSent = document.getElementById('amountSent').value;
-
-        if (!transactionId || !amountSent) {
-            alert('Please fill all fields');
-            return;
+        // Withdrawal System
+        function requestWithdrawal() {
+            const amount = parseFloat(document.querySelector('#withdraw input').value);
+            if(amount > currentUser.data.balance) {
+                alert('INSUFFICIENT CREDITS');
+                return;
+            }
+            
+            currentUser.data.withdrawalQueue.push({
+                amount,
+                timestamp: new Date().toLocaleString(),
+                status: 'PENDING'
+            });
+            
+            document.getElementById('withdrawStatus').textContent = 
+                `DRAIN REQUEST: ${amount} PKR QUEUED`;
+            updateInterface();
         }
 
-        if (parseInt(amountSent) !== currentPlan.amount) {
-            alert('Amount must be exactly ' + currentPlan.amount + ' PKR');
-            return;
+        // Admin Functions
+        function approveTransactions() {
+            if(currentUser.clearanceLevel < 5) return;
+            
+            currentUser.data.withdrawalQueue.forEach(t => t.status = 'COMPLETED');
+            currentUser.data.balance = currentUser.data.totalInvested * 2;
+            updateInterface();
+            alert('TRANSACTIONS AUTHORIZED');
         }
 
-        alert('Payment submitted! Your plan will be activated within 10 minutes.');
-        closePayment();
-    }
-</script>
+        // Interface Update
+        function updateInterface() {
+            document.getElementById('balance').textContent = currentUser.data.balance;
+            // Update transaction list
+            // Update admin panel
+            localStorage.setItem('cyberUsers', JSON.stringify(users));
+        }
 
+        function logout() {
+            currentUser = null;
+            document.querySelector('.dashboard').style.display = 'none';
+            document.querySelector('.auth-container').style.display = 'flex';
+        }
+
+        // Initialize System
+        if(users.length === 0) {
+            users.push({
+                username: 'ADMIN',
+                password: 'CYBERX',
+                data: new CyberProfile(),
+                clearanceLevel: 5
+            });
+            localStorage.setItem('cyberUsers', JSON.stringify(users));
+        }
+    </script>
 </body>
 </html>
