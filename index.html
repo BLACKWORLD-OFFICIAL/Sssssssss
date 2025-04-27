@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BALOCH EARNING PLATFORM</title>
-    <link href="https://fonts.googleapis.com/css2?family=Tektur:wght@400;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Germania+One&family=Tektur:wght@400;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
@@ -12,6 +12,7 @@
             --neon-blue: #0066ff;
             --dark-bg: #0a0a1a;
             --text-white: #ffffff;
+            --gold: #ffd700;
         }
         
         body {
@@ -21,6 +22,26 @@
             margin: 0;
             min-height: 100vh;
             transition: background 0.3s;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, var(--neon-blue), var(--neon-green));
+            opacity: 0.1;
+            z-index: -1;
+            animation: backgroundAnim 20s linear infinite;
+        }
+
+        @keyframes backgroundAnim {
+            0% { transform: scale(1) rotate(0deg); }
+            50% { transform: scale(1.2) rotate(180deg); }
+            100% { transform: scale(1) rotate(360deg); }
         }
 
         /* Auth Container - Custom Baloch Style */
@@ -30,6 +51,7 @@
             align-items: center;
             min-height: 100vh;
             background: radial-gradient(circle at center, #1a0a0a, #000);
+            position: relative;
         }
 
         .container {
@@ -41,6 +63,7 @@
             width: 90%;
             max-width: 450px;
             animation: glow 2s infinite alternate;
+            backdrop-filter: blur(5px);
         }
 
         @keyframes glow {
@@ -158,6 +181,7 @@
             display: none;
             z-index: 1001;
             animation: slideIn 0.3s forwards;
+            backdrop-filter: blur(5px);
         }
 
         @keyframes slideIn {
@@ -179,6 +203,7 @@
             padding: 1rem;
             max-width: 1200px;
             margin: 0 auto;
+            position: relative;
         }
 
         header {
@@ -187,6 +212,8 @@
             align-items: center;
             padding: 1rem;
             border-bottom: 1px solid var(--neon-green);
+            background: rgba(10, 10, 20, 0.8);
+            backdrop-filter: blur(5px);
         }
 
         .platform-logo {
@@ -216,6 +243,8 @@
             padding: 1rem 0;
             border-bottom: 1px solid rgba(0, 255, 157, 0.3);
             margin-bottom: 1rem;
+            background: rgba(10, 10, 20, 0.8);
+            backdrop-filter: blur(5px);
         }
 
         .nav-btn {
@@ -238,6 +267,10 @@
         .section {
             display: none;
             padding: 1rem;
+            background: rgba(10, 10, 20, 0.5);
+            border-radius: 10px;
+            margin: 1rem 0;
+            backdrop-filter: blur(5px);
         }
 
         .section.active {
@@ -253,22 +286,51 @@
         }
 
         .plan-card {
-            background: rgba(0, 0, 0, 0.3);
-            border: 1px solid var(--neon-green);
+            position: relative;
+            overflow: hidden;
             border-radius: 10px;
-            padding: 1.5rem;
             transition: all 0.3s;
         }
 
-        .plan-card:hover {
+        .plan-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, var(--neon-green), transparent);
+            animation: rotate 6s linear infinite;
+            z-index: 0;
+        }
+
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .plan-card-content {
+            position: relative;
+            z-index: 1;
+            background: rgba(0, 0, 0, 0.7);
+            height: 100%;
+            padding: 1.5rem;
+            border-radius: 10px;
+            border: 1px solid var(--neon-green);
+            transition: all 0.3s;
+        }
+
+        .plan-card:hover .plan-card-content {
             transform: translateY(-5px);
-            box-shadow: 0 5px 15px rgba(0, 255, 157, 0.3);
+            box-shadow: 0 10px 20px rgba(0, 255, 157, 0.3);
         }
 
         .plan-name {
-            color: var(--neon-green);
+            color: var(--gold);
             margin-bottom: 1rem;
-            font-family: 'Tektur', sans-serif;
+            font-family: 'Germania One', cursive;
+            font-size: 2rem;
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
         }
 
         /* Transactions */
@@ -278,6 +340,7 @@
             background: rgba(0, 0, 0, 0.2);
             border-left: 4px solid var(--neon-green);
             border-radius: 5px;
+            backdrop-filter: blur(5px);
         }
 
         /* Withdraw */
@@ -295,6 +358,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            backdrop-filter: blur(5px);
         }
 
         /* Modal */
@@ -318,6 +382,7 @@
             border: 2px solid var(--neon-green);
             width: 90%;
             max-width: 500px;
+            backdrop-filter: blur(5px);
         }
 
         .highlight {
@@ -341,6 +406,64 @@
             color: var(--neon-green);
         }
 
+        .contact-warning {
+            color: var(--neon-green);
+            font-size: 0.9rem;
+            margin-top: 1rem;
+            text-align: center;
+            padding: 0.5rem;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 5px;
+        }
+
+        /* Social Icons */
+        .social-fixed {
+            position: fixed;
+            right: 20px;
+            bottom: 80px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            z-index: 1000;
+        }
+
+        .social-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--neon-green);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: black;
+            transition: all 0.3s;
+            box-shadow: 0 0 15px rgba(0, 255, 157, 0.7);
+        }
+
+        .social-icon:hover {
+            transform: scale(1.2);
+            box-shadow: 0 0 20px rgba(0, 255, 157, 1);
+        }
+
+        /* Footer */
+        footer {
+            background: rgba(0,0,0,0.8);
+            padding: 1rem;
+            text-align: center;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            backdrop-filter: blur(5px);
+            border-top: 1px solid var(--neon-green);
+            z-index: 999;
+        }
+
+        footer p {
+            margin: 0;
+            font-size: 0.9rem;
+        }
+
         /* Responsive */
         @media (max-width: 768px) {
             .plans-grid {
@@ -351,6 +474,22 @@
                 flex-direction: column;
                 gap: 0.5rem;
             }
+
+            .social-fixed {
+                right: 10px;
+                bottom: 70px;
+            }
+
+            .social-icon {
+                width: 40px;
+                height: 40px;
+                font-size: 1.2rem;
+            }
+
+            .modal-content input {
+                padding: 1rem;
+                height: 50px !important;
+            }
         }
     </style>
 </head>
@@ -359,7 +498,7 @@
     <div class="auth-container">
         <div class="container">
             <div class="logo">
-                <h1>BALOCH EARNING</h1>
+                                <h1>BALOCH EARNING</h1>
                 <p>Trusted Investment Platform Since 2020</p>
             </div>
             
@@ -386,6 +525,24 @@
         </div>
     </div>
 
+    <!-- Social Media Fixed Icons -->
+    <div class="social-fixed">
+        <a href="https://wa.me/923407699974" class="social-icon" target="_blank">
+            <i class="fab fa-whatsapp"></i>
+        </a>
+        <a href="https://t.me/TECHBYHUZII" class="social-icon" target="_blank">
+            <i class="fab fa-telegram"></i>
+        </a>
+        <a href="https://whatsapp.com/channel/0029Vb2TegQ8aKvLcZs92Y3r" class="social-icon" target="_blank">
+            <i class="fab fa-whatsapp"></i>
+        </a>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>Trusted © 2020 to 2025 | Contact: 923407699974 (Easypaisa)</p>
+    </footer>
+
     <!-- Main Platform -->
     <div class="platform">
         <header>
@@ -409,39 +566,47 @@
             <h2>Investment Plans</h2>
             <div class="plans-grid">
                 <div class="plan-card">
-                    <h3 class="plan-name">SILVER PLAN</h3>
-                    <p><strong>Investment:</strong> 2500 PKR</p>
-                    <p><strong>Return:</strong> 5000 PKR</p>
-                    <p><strong>Daily Profit:</strong> 500 PKR</p>
-                    <p><strong>Duration:</strong> 10 Days</p>
-                    <button onclick="showPlanModal('Silver', 2500, 5000, 250)">Activate Plan</button>
+                    <div class="plan-card-content">
+                        <h3 class="plan-name">SILVER PLAN</h3>
+                        <p><strong>Investment:</strong> 2500 PKR</p>
+                        <p><strong>Return:</strong> 5000 PKR</p>
+                        <p><strong>Daily Profit:</strong> 500 PKR</p>
+                        <p><strong>Duration:</strong> 10 Days</p>
+                        <button onclick="showPlanModal('Silver', 2500, 5000, 250)">Activate Plan</button>
+                    </div>
                 </div>
 
                 <div class="plan-card">
-                    <h3 class="plan-name">GOLD PLAN</h3>
-                    <p><strong>Investment:</strong> 5000 PKR</p>
-                    <p><strong>Return:</strong> 10000 PKR</p>
-                    <p><strong>Daily Profit:</strong> 1000 PKR</p>
-                    <p><strong>Duration:</strong> 10 Days</p>
-                    <button onclick="showPlanModal('Gold', 5000, 10000, 500)">Activate Plan</button>
+                    <div class="plan-card-content">
+                        <h3 class="plan-name">GOLD PLAN</h3>
+                        <p><strong>Investment:</strong> 5000 PKR</p>
+                        <p><strong>Return:</strong> 10000 PKR</p>
+                        <p><strong>Daily Profit:</strong> 1000 PKR</p>
+                        <p><strong>Duration:</strong> 10 Days</p>
+                        <button onclick="showPlanModal('Gold', 5000, 10000, 500)">Activate Plan</button>
+                    </div>
                 </div>
 
                 <div class="plan-card">
-                    <h3 class="plan-name">PLATINUM PLAN</h3>
-                    <p><strong>Investment:</strong> 10000 PKR</p>
-                    <p><strong>Return:</strong> 20000 PKR</p>
-                    <p><strong>Daily Profit:</strong> 2000 PKR</p>
-                    <p><strong>Duration:</strong> 10 Days</p>
-                    <button onclick="showPlanModal('Platinum', 10000, 20000, 1000)">Activate Plan</button>
+                    <div class="plan-card-content">
+                        <h3 class="plan-name">PLATINUM PLAN</h3>
+                        <p><strong>Investment:</strong> 10000 PKR</p>
+                        <p><strong>Return:</strong> 20000 PKR</p>
+                        <p><strong>Daily Profit:</strong> 2000 PKR</p>
+                        <p><strong>Duration:</strong> 10 Days</p>
+                        <button onclick="showPlanModal('Platinum', 10000, 20000, 1000)">Activate Plan</button>
+                    </div>
                 </div>
 
                 <div class="plan-card">
-                    <h3 class="plan-name">DIAMOND PLAN</h3>
-                    <p><strong>Investment:</strong> 20000 PKR</p>
-                    <p><strong>Return:</strong> 40000 PKR</p>
-                    <p><strong>Daily Profit:</strong> 4000 PKR</p>
-                    <p><strong>Duration:</strong> 10 Days</p>
-                    <button onclick="showPlanModal('Diamond', 20000, 40000, 2000)">Activate Plan</button>
+                    <div class="plan-card-content">
+                        <h3 class="plan-name">DIAMOND PLAN</h3>
+                        <p><strong>Investment:</strong> 20000 PKR</p>
+                        <p><strong>Return:</strong> 40000 PKR</p>
+                        <p><strong>Daily Profit:</strong> 4000 PKR</p>
+                        <p><strong>Duration:</strong> 10 Days</p>
+                        <button onclick="showPlanModal('Diamond', 20000, 40000, 2000)">Activate Plan</button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -488,19 +653,20 @@
             <h2>Activate <span id="modalPlanName">Silver</span> Plan</h2>
             <div style="margin: 1rem 0;">
                 <p>Send payment to: <span class="highlight">03407699974</span> (Easypaisa)</p>
-                <p>Account Name: <span class="highlight">Huzaifa Haris</span></p>
+                <p>Account Name: <span class="highlight">HUZAIFA HARIS</span></p>
                 <p>Amount: <span id="modalPlanAmount">2500</span> PKR</p>
                 <p>Expected Return: <span id="modalPlanReturn">5000</span> PKR</p>
-                <input type="text" id="transactionId" placeholder="Transaction ID">
-                <input type="number" id="investmentAmount" placeholder="Amount Sent">
+                <input type="text" id="transactionId" placeholder="Transaction ID" style="height: 70px; font-size: 1.2rem;">
+                <input type="number" id="investmentAmount" placeholder="Amount Sent" style="height: 70px; font-size: 1.2rem;">
+                <p class="contact-warning">
+                    If payment not verified within 10 minutes, contact immediately on 03407699974<br>
+                    (WhatsApp calls only, messages will not be answered)
+                </p>
             </div>
             <div class="modal-buttons">
                 <button onclick="activatePlan()">Confirm Payment</button>
                 <button class="cancel-btn" onclick="closeModal()">Cancel</button>
             </div>
-                        <p style="margin-top: 1rem; color: var(--neon-green);">
-                OWNER : <span class="highlight">03407699974</span>
-            </p>
         </div>
     </div>
 
@@ -792,7 +958,7 @@
             }
         }
 
-        function renderTransactions() {
+                function renderTransactions() {
             const container = document.getElementById('transactionList');
             container.innerHTML = '';
             
