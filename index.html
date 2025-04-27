@@ -1,305 +1,164 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BALOCH EARNING PLATFORM</title>
-    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Tektur:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        :root {
-            --neon-green: #00ff9d;
-            --neon-blue: #0066ff;
-            --dark-bg: #0a0a1a;
-            --neon-purple: #7122fa;
-        }
-
-        body {
-            font-family: 'Anton', sans-serif;
-            margin: 0;
-            min-height: 100vh;
-            background: var(--dark-bg);
-            color: white;
-        }
-
-        /* Auth Container */
-        .auth-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            background: radial-gradient(circle at center, #0a0a1a, #000);
-        }
-
-        .container {
-            background: rgba(10, 20, 40, 0.9);
-            padding: 2rem;
-            border-radius: 15px;
-            border: 2px solid var(--neon-green);
-            box-shadow: 0 0 20px rgba(0, 255, 157, 0.3);
-            width: 100%;
-            max-width: 400px;
-        }
-
-        .tabs {
-            display: flex;
-            gap: 1rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .tab {
-            flex: 1;
-            padding: 1rem;
-            background: rgba(0, 0, 0, 0.3);
-            border: none;
-            border-radius: 8px;
-            color: var(--neon-green);
-            cursor: pointer;
-            transition: all 0.3s;
-            font-family: 'Anton', sans-serif;
-        }
-
-        .tab.active {
-            background: linear-gradient(45deg, var(--neon-green), var(--neon-blue));
-            color: white;
-        }
-
-        input {
-            width: 100%;
-            padding: 1rem;
-            margin: 0.5rem 0;
-            background: rgba(0, 0, 0, 0.5);
-            border: 1px solid var(--neon-green);
-            color: white;
-            border-radius: 8px;
-            font-family: 'Anton', sans-serif;
-            font-weight: 700;
-        }
-
-        button[type="submit"] {
-            width: 100%;
-            padding: 1rem;
-            background: linear-gradient(45deg, var(--neon-green), var(--neon-blue));
-            border: none;
-            border-radius: 8px;
-            color: black;
-            font-weight: bold;
-            margin-top: 1rem;
-            cursor: pointer;
-            transition: transform 0.3s;
-        }
-
-        /* Plans Page */
-        .plans-page {
-            display: none;
-            padding: 2rem;
-        }
-
-        .plans-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1.5rem;
-        }
-
-        .plan-card {
-            background: rgba(10, 20, 40, 0.9);
-            border: 2px solid var(--neon-green);
-            border-radius: 15px;
-            padding: 1.5rem;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .plan-card::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(45deg, transparent, var(--neon-green), transparent);
-            animation: glow 4s linear infinite;
-        }
-
-        @keyframes glow {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        .withdrawal-note {
-            color: var(--neon-green);
-            font-size: 0.9rem;
-            margin: 1rem 0;
-        }
-
-        /* Payment Modal */
-        .modal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.8);
-            display: none;
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-        }
-
-        .modal-content {
-            background: var(--dark-bg);
-            padding: 2rem;
-            border-radius: 15px;
-            border: 2px solid var(--neon-green);
-            width: 90%;
-            max-width: 500px;
-        }
-
-        /* Footer */
-        .footer {
-            text-align: center;
-            margin-top: 3rem;
-            padding: 2rem;
-            border-top: 1px solid var(--neon-green);
-        }
-
-        .social-links {
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
-            margin: 1.5rem 0;
-        }
-
-        .social-links a {
-            color: var(--neon-green);
-            text-decoration: none;
-            font-size: 1.5rem;
-        }
-
-        .social-links a:hover {
-            color: var(--neon-blue);
-        }
-
-        /* Custom Input Sizes */
-        input[type="text"], input[type="email"], input[type="password"], input[type="number"] {
-            height: 40px;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BALOCH EARNING PLATFORM</title>
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Tektur:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    /* Same CSS as you wrote */
+    :root {
+      --neon-green: #00ff9d;
+      --neon-blue: #0066ff;
+      --dark-bg: #0a0a1a;
+      --neon-purple: #7122fa;
+    }
+    body {
+      font-family: 'Anton', sans-serif;
+      margin: 0;
+      min-height: 100vh;
+      background: var(--dark-bg);
+      color: white;
+    }
+    .auth-container { display: flex; justify-content: center; align-items: center; min-height: 100vh; background: radial-gradient(circle at center, #0a0a1a, #000); }
+    .container { background: rgba(10, 20, 40, 0.9); padding: 2rem; border-radius: 15px; border: 2px solid var(--neon-green); box-shadow: 0 0 20px rgba(0, 255, 157, 0.3); width: 100%; max-width: 400px; }
+    .tabs { display: flex; gap: 1rem; margin-bottom: 1.5rem; }
+    .tab { flex: 1; padding: 1rem; background: rgba(0, 0, 0, 0.3); border: none; border-radius: 8px; color: var(--neon-green); cursor: pointer; transition: all 0.3s; font-family: 'Anton', sans-serif; }
+    .tab.active { background: linear-gradient(45deg, var(--neon-green), var(--neon-blue)); color: white; }
+    input { width: 100%; padding: 1rem; margin: 0.5rem 0; background: rgba(0, 0, 0, 0.5); border: 1px solid var(--neon-green); color: white; border-radius: 8px; font-weight: 700; }
+    button[type="submit"] { width: 100%; padding: 1rem; background: linear-gradient(45deg, var(--neon-green), var(--neon-blue)); border: none; border-radius: 8px; color: black; font-weight: bold; margin-top: 1rem; cursor: pointer; transition: transform 0.3s; }
+    .plans-page { display: none; padding: 2rem; }
+    .plans-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; }
+    .plan-card { background: rgba(10, 20, 40, 0.9); border: 2px solid var(--neon-green); border-radius: 15px; padding: 1.5rem; position: relative; overflow: hidden; }
+    .plan-card::before { content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: linear-gradient(45deg, transparent, var(--neon-green), transparent); animation: glow 4s linear infinite; }
+    @keyframes glow { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+    .withdrawal-note { color: var(--neon-green); font-size: 0.9rem; margin: 1rem 0; }
+    .modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.8); display: none; justify-content: center; align-items: center; z-index: 1000; }
+    .modal-content { background: var(--dark-bg); padding: 2rem; border-radius: 15px; border: 2px solid var(--neon-green); width: 90%; max-width: 500px; }
+    .footer { text-align: center; margin-top: 3rem; padding: 2rem; border-top: 1px solid var(--neon-green); }
+    .social-links { display: flex; justify-content: center; gap: 2rem; margin: 1.5rem 0; }
+    .social-links a { color: var(--neon-green); text-decoration: none; font-size: 1.5rem; }
+    .social-links a:hover { color: var(--neon-blue); }
+    input[type="text"], input[type="email"], input[type="password"], input[type="number"] { height: 40px; }
+  </style>
 </head>
 <body>
-    <!-- Auth Section -->
-    <div class="auth-container">
-        <div class="container">
-            <div class="tabs">
-                <button class="tab active" onclick="showTab('login')">Login</button>
-                <button class="tab" onclick="showTab('signup')">Sign Up</button>
-            </div>
 
-            <!-- Login Form -->
-            <form id="loginForm" class="active">
-                <input type="text" placeholder="Username" required>
-                <input type="password" placeholder="Password" required>
-                <button type="submit">Login</button>
-            </form>
-
-            <!-- Signup Form -->
-            <form id="signupForm" style="display: none;">
-                <input type="text" placeholder="Username" required>
-                <input type="email" placeholder="Email" required>
-                <input type="password" placeholder="Password" required>
-                <input type="password" placeholder="Confirm Password" required>
-                <button type="submit">Create Account</button>
-            </form>
-        </div>
+<!-- Auth Section -->
+<div class="auth-container" id="authContainer">
+  <div class="container">
+    <div class="tabs">
+      <button class="tab active" onclick="showTab('login')">Login</button>
+      <button class="tab" onclick="showTab('signup')">Sign Up</button>
     </div>
 
-    <!-- Plans Page -->
-    <div class="plans-page">
-        <div class="plans-grid">
-            <div class="plan-card">
-                <h2>Silver Plan</h2>
-                <p>Investment: 2500 PKR</p>
-                <p>Return: 5000 PKR</p>
-                <p class="withdrawal-note">Withdrawal via Easypaisa/JazzCash only</p>
-                <button onclick="showPayment('Silver', 2500)">Activate Plan</button>
-            </div>
+    <form id="loginForm" class="active" onsubmit="login(event)">
+      <input type="text" id="loginUsername" placeholder="Username" required>
+      <input type="password" id="loginPassword" placeholder="Password" required>
+      <button type="submit">Login</button>
+    </form>
 
-            <div class="plan-card">
-                <h2>Gold Plan</h2>
-                <p>Investment: 5000 PKR</p>
-                <p>Return: 10000 PKR</p>
-                <p class="withdrawal-note">Withdrawal via Easypaisa/JazzCash only</p>
-                <button onclick="showPayment('Gold', 5000)">Activate Plan</button>
-            </div>
+    <form id="signupForm" style="display: none;" onsubmit="signup(event)">
+      <input type="text" id="signupUsername" placeholder="Username" required>
+      <input type="email" id="signupEmail" placeholder="Email" required>
+      <input type="password" id="signupPassword" placeholder="Password" required>
+      <input type="password" id="signupConfirmPassword" placeholder="Confirm Password" required>
+      <button type="submit">Create Account</button>
+    </form>
+  </div>
+</div>
 
-            <div class="plan-card">
-                <h2>Platinum Plan</h2>
-                <p>Investment: 10000 PKR</p>
-                <p>Return: 20000 PKR</p>
-                <p class="withdrawal-note">Withdrawal via Easypaisa/JazzCash only</p>
-                <button onclick="showPayment('Platinum', 10000)">Activate Plan</button>
-            </div>
-
-            <div class="plan-card">
-                <h2>Diamond Plan</h2>
-                <p>Investment: 20000 PKR</p>
-                <p>Return: 40000 PKR</p>
-                <p class="withdrawal-note">Withdrawal via Easypaisa/JazzCash only</p>
-                <button onclick="showPayment('Diamond', 20000)">Activate Plan</button>
-            </div>
-        </div>
-
-        <!-- Footer -->
-        <div class="footer">
-            <h3>Trusted Since 3 Years</h3>
-            <div class="social-links">
-                <a href="https://wa.me/923407699974"><i class="fab fa-whatsapp"></i> +923407699974</a>
-                <a href="https://t.me/TECHBYHUZII"><i class="fab fa-telegram"></i> TECHBYHUZII</a>
-            </div>
-        </div>
+<!-- Plans Page -->
+<div class="plans-page" id="plansPage">
+  <div class="plans-grid">
+    <div class="plan-card">
+      <h2>Silver Plan</h2>
+      <p>Investment: 2500 PKR</p>
+      <p>Return: 5000 PKR</p>
+      <p class="withdrawal-note">Withdrawal via Easypaisa/JazzCash only</p>
+      <button onclick="showPayment('Silver', 2500)">Activate Plan</button>
     </div>
-
-    <!-- Payment Modal -->
-    <div class="modal" id="paymentModal">
-        <div class="modal-content">
-            <h2>Activate Plan</h2>
-            <p>Transaction ID: <input type="text" placeholder="Enter Transaction ID" id="transactionId"></p>
-            <p>Amount: <input type="number" placeholder="Enter Amount" id="amount"></p>
-            <button onclick="submitPayment()">Submit</button>
-        </div>
+    <div class="plan-card">
+      <h2>Gold Plan</h2>
+      <p>Investment: 5000 PKR</p>
+      <p>Return: 10000 PKR</p>
+      <p class="withdrawal-note">Withdrawal via Easypaisa/JazzCash only</p>
+      <button onclick="showPayment('Gold', 5000)">Activate Plan</button>
     </div>
+    <div class="plan-card">
+      <h2>Platinum Plan</h2>
+      <p>Investment: 10000 PKR</p>
+      <p>Return: 20000 PKR</p>
+      <p class="withdrawal-note">Withdrawal via Easypaisa/JazzCash only</p>
+      <button onclick="showPayment('Platinum', 10000)">Activate Plan</button>
+    </div>
+    <div class="plan-card">
+      <h2>Diamond Plan</h2>
+      <p>Investment: 20000 PKR</p>
+      <p>Return: 40000 PKR</p>
+      <p class="withdrawal-note">Withdrawal via Easypaisa/JazzCash only</p>
+      <button onclick="showPayment('Diamond', 20000)">Activate Plan</button>
+    </div>
+  </div>
 
-    <script>
-        function showTab(tab) {
-            if(tab === 'login') {
-                document.getElementById('loginForm').style.display = 'block';
-                document.getElementById('signupForm').style.display = 'none';
-                document.querySelector('.tab.active').classList.remove('active');
-                document.querySelectorAll('.tab')[0].classList.add('active');
-            } else {
-                document.getElementById('loginForm').style.display = 'none';
-                document.getElementById('signupForm').style.display = 'block';
-                document.querySelector('.tab.active').classList.remove('active');
-                document.querySelectorAll('.tab')[1].classList.add('active');
-            }
-        }
+  <div class="footer">
+    <h3>Trusted Since 3 Years</h3>
+    <div class="social-links">
+      <a href="https://wa.me/923407699974"><i class="fab fa-whatsapp"></i> +923407699974</a>
+      <a href="https://t.me/TECHBYHUZII"><i class="fab fa-telegram"></i> TECHBYHUZII</a>
+    </div>
+  </div>
+</div>
 
-        function showPayment(plan, amount) {
-            const modal = document.getElementById('paymentModal');
-            modal.style.display = 'flex';
-            document.getElementById('transactionId').focus();
-        }
+<!-- Payment Modal -->
+<div class="modal" id="paymentModal">
+  <div class="modal-content">
+    <h2>Payment Instructions</h2>
+    <p id="paymentDetails"></p>
+    <button onclick="closeModal()">Close</button>
+  </div>
+</div>
 
-        function submitPayment() {
-            const transactionId = document.getElementById('transactionId').value;
-            const amount = document.getElementById('amount').value;
-            if (transactionId && amount) {
-                alert(`Payment Details:\nTransaction ID: ${transactionId}\nAmount: ${amount}`);
-                document.getElementById('paymentModal').style.display = 'none';
-            } else {
-                alert('Please fill all fields');
-            }
-        }
-    </script>
+<script>
+  function showTab(tab) {
+    document.getElementById('loginForm').style.display = (tab === 'login') ? 'block' : 'none';
+    document.getElementById('signupForm').style.display = (tab === 'signup') ? 'block' : 'none';
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    event.target.classList.add('active');
+  }
+
+  function login(event) {
+    event.preventDefault();
+    const username = document.getElementById('loginUsername').value;
+    const password = document.getElementById('loginPassword').value;
+    if (username && password) {
+      document.getElementById('authContainer').style.display = 'none';
+      document.getElementById('plansPage').style.display = 'block';
+    }
+  }
+
+  function signup(event) {
+    event.preventDefault();
+    const pass = document.getElementById('signupPassword').value;
+    const confirmPass = document.getElementById('signupConfirmPassword').value;
+    if (pass === confirmPass) {
+      alert('Account created successfully! Now Login.');
+      showTab('login');
+    } else {
+      alert('Passwords do not match!');
+    }
+  }
+
+  function showPayment(planName, amount) {
+    document.getElementById('paymentDetails').innerText = `Plan: ${planName}\nAmount: ${amount} PKR\nSend to Easypaisa: 0340-7699974\nAfter payment, send screenshot to our WhatsApp.`;
+    document.getElementById('paymentModal').style.display = 'flex';
+  }
+
+  function closeModal() {
+    document.getElementById('paymentModal').style.display = 'none';
+  }
+</script>
+
 </body>
 </html>
