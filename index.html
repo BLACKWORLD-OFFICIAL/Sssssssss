@@ -3,26 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BALOCH EARNING PLATFORM</title>
-    <link href="https://fonts.googleapis.com/css2?family=Tektur:wght@400;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>Baloch Investment Platform</title>
     <style>
         :root {
-            --neon-green: #00ff9d;
-            --neon-blue: #0066ff;
-            --dark-bg: #0a0a1a;
-            --text-white: #ffffff;
+            --primary: #00ff9d;
+            --secondary: #0066ff;
+            --dark: #0a0a1a;
+            --light: #ffffff;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
         }
 
         body {
-            font-family: 'Roboto', sans-serif;
-            background: var(--dark-bg);
-            color: var(--text-white);
-            margin: 0;
+            background: var(--dark);
+            color: var(--light);
             min-height: 100vh;
         }
 
-        /* Auth Container */
+        /* Auth Styles */
         .auth-container {
             display: flex;
             justify-content: center;
@@ -31,11 +34,11 @@
             background: radial-gradient(circle at center, #0a0a1a, #000);
         }
 
-        .container {
+        .auth-box {
             background: rgba(10, 20, 40, 0.85);
             padding: 2rem;
             border-radius: 15px;
-            border: 2px solid var(--neon-green);
+            border: 2px solid var(--primary);
             box-shadow: 0 0 20px rgba(0, 255, 157, 0.3);
             width: 90%;
             max-width: 450px;
@@ -43,7 +46,6 @@
 
         .tabs {
             display: flex;
-            gap: 1rem;
             margin-bottom: 1.5rem;
         }
 
@@ -53,13 +55,14 @@
             background: rgba(0, 0, 0, 0.3);
             border: none;
             border-radius: 8px;
-            color: var(--neon-green);
+            color: var(--primary);
             cursor: pointer;
             transition: all 0.3s;
+            text-align: center;
         }
 
         .tab.active {
-            background: linear-gradient(45deg, var(--neon-green), var(--neon-blue));
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
             color: white;
         }
 
@@ -71,85 +74,155 @@
             display: block;
         }
 
-        input, select {
+        input {
             width: 100%;
             padding: 1rem;
             margin: 0.8rem 0;
             background: rgba(0, 0, 0, 0.5);
-            border: 1px solid var(--neon-green);
+            border: 1px solid var(--primary);
             color: white;
             border-radius: 8px;
+            font-size: 1rem;
         }
 
         button {
+            width: 100%;
             padding: 1rem;
-            background: linear-gradient(45deg, var(--neon-green), var(--neon-blue));
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
             border: none;
             border-radius: 8px;
             color: black;
             font-weight: bold;
             cursor: pointer;
             margin-top: 1rem;
+            font-size: 1rem;
+            transition: all 0.3s;
         }
 
-        /* Main Platform Styles */
-        .platform-container {
+        button:hover {
+            opacity: 0.9;
+        }
+
+        /* Platform Styles */
+        .platform {
             display: none;
-            padding: 2rem;
+            padding: 1rem;
         }
 
-        .nav-menu {
+        header {
             display: flex;
-            justify-content: center;
-            gap: 2rem;
-            margin-bottom: 2rem;
-            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            border-bottom: 1px solid var(--primary);
         }
 
-        .nav-button {
-            padding: 1rem 2rem;
-            border: 2px solid var(--neon-green);
-            border-radius: 8px;
+        .logo {
+            color: var(--primary);
+            font-weight: bold;
+            font-size: 1.5rem;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .balance {
+            background: rgba(0, 255, 157, 0.1);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            border: 1px solid var(--primary);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-around;
+            padding: 1rem 0;
+            border-bottom: 1px solid rgba(0, 255, 157, 0.3);
+            margin-bottom: 1rem;
+        }
+
+        .nav-btn {
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
             cursor: pointer;
             transition: all 0.3s;
         }
 
-        .nav-button:hover {
-            background: var(--neon-green);
-            color: #000;
+        .nav-btn:hover {
+            background: rgba(0, 255, 157, 0.1);
+        }
+
+        .nav-btn.active {
+            background: var(--primary);
+            color: black;
         }
 
         .section {
             display: none;
-            background: rgba(10, 20, 40, 0.7);
-            border: 2px solid var(--neon-green);
-            border-radius: 15px;
-            padding: 2rem;
-            margin: 2rem auto;
-            max-width: 800px;
+            padding: 1rem;
         }
 
         .section.active {
             display: block;
         }
 
-        .plan-card {
-            background: rgba(0, 0, 0, 0.3);
-            border: 1px solid var(--neon-green);
-            border-radius: 10px;
-            padding: 1.5rem;
-            margin: 1rem 0;
+        /* Plans */
+        .plans-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
         }
 
+        .plan-card {
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--primary);
+            border-radius: 10px;
+            padding: 1.5rem;
+            transition: all 0.3s;
+        }
+
+        .plan-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 255, 157, 0.3);
+        }
+
+        .plan-name {
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        /* Transactions */
         .transaction-item {
             padding: 1rem;
             margin: 1rem 0;
             background: rgba(0, 0, 0, 0.2);
-            border-left: 4px solid var(--neon-green);
+            border-left: 4px solid var(--primary);
+            border-radius: 5px;
         }
 
-        /* Payment Modal */
-        .payment-modal {
+        /* Withdraw */
+        .withdraw-form {
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        /* Admin */
+        .admin-item {
+            padding: 1rem;
+            margin: 1rem 0;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* Modal */
+        .modal {
             position: fixed;
             top: 0;
             left: 0;
@@ -162,74 +235,125 @@
             z-index: 1000;
         }
 
-        .payment-content {
-            background: var(--dark-bg);
+        .modal-content {
+            background: var(--dark);
             padding: 2rem;
             border-radius: 15px;
-            border: 2px solid var(--neon-green);
+            border: 2px solid var(--primary);
             width: 90%;
             max-width: 500px;
+        }
+
+        .highlight {
+            color: var(--primary);
+            font-weight: bold;
+        }
+
+        .modal-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .modal-buttons button {
+            flex: 1;
+        }
+
+        .cancel-btn {
+            background: transparent;
+            border: 1px solid var(--primary);
+            color: var(--primary);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .plans-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            nav {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
         }
     </style>
 </head>
 <body>
     <!-- Auth Section -->
     <div class="auth-container">
-        <div class="container">
+        <div class="auth-box">
             <div class="tabs">
-                <button class="tab active" onclick="showTab('login')">Login</button>
-                <button class="tab" onclick="showTab('signup')">Sign Up</button>
+                <button class="tab active" onclick="showAuthTab('login', this)">Login</button>
+                <button class="tab" onclick="showAuthTab('signup', this)">Sign Up</button>
             </div>
 
             <!-- Login Form -->
             <form id="loginForm" class="tab-content active">
-                <input type="text" placeholder="Username" required>
-                <input type="password" placeholder="Password" required>
+                <input type="text" id="loginUsername" placeholder="Username" required>
+                <input type="password" id="loginPassword" placeholder="Password" required>
                 <button type="submit">Login</button>
             </form>
 
             <!-- Signup Form -->
             <form id="signupForm" class="tab-content">
-                <input type="text" placeholder="Username" required>
-                <input type="email" placeholder="Email" required>
-                <input type="password" placeholder="Password" required>
-                <input type="password" placeholder="Confirm Password" required>
+                <input type="text" id="signupUsername" placeholder="Username" required>
+                <input type="email" id="signupEmail" placeholder="Email" required>
+                <input type="password" id="signupPassword" placeholder="Password" required>
+                <input type="password" id="signupConfirmPassword" placeholder="Confirm Password" required>
                 <button type="submit">Create Account</button>
             </form>
         </div>
     </div>
 
     <!-- Main Platform -->
-    <div class="platform-container">
-        <nav class="nav-menu">
-            <div class="nav-button" onclick="showSection('plans')">Investment Plans</div>
-            <div class="nav-button" onclick="showSection('transactions')">Transactions</div>
-            <div class="nav-button" onclick="showSection('withdraw')">Withdraw</div>
-            <div class="nav-button" onclick="showSection('profile')">Profile</div>
-            <div class="nav-button" onclick="showSection('admin')" id="adminButton" style="display: none;">Admin</div>
+    <div class="platform">
+        <header>
+            <div class="logo">Baloch Investments</div>
+            <div class="user-info">
+                <div class="balance">$<span id="currentBalance">0</span></div>
+                <button onclick="logout()" style="width: auto; padding: 0.5rem 1rem;">Logout</button>
+            </div>
+        </header>
+
+        <nav>
+            <div class="nav-btn active" onclick="showPlatformTab('plans')">Plans</div>
+            <div class="nav-btn" onclick="showPlatformTab('transactions')">Transactions</div>
+            <div class="nav-btn" onclick="showPlatformTab('withdraw')">Withdraw</div>
+            <div class="nav-btn" onclick="showPlatformTab('profile')">Profile</div>
+            <div class="nav-btn" id="adminNavBtn" style="display: none;" onclick="showPlatformTab('admin')">Admin</div>
         </nav>
 
         <!-- Plans Section -->
         <div id="plans" class="section active">
-            <div class="plan-card">
-                <h3>SILVER PLAN</h3>
-                <p>Investment: $10 - $49 | Return: Double in 10 Days</p>
-                <button onclick="showPayment('Silver')">Activate Plan</button>
-            </div>
-            <div class="plan-card">
-                <h3>GOLD PLAN</h3>
-                <p>Investment: $50 - $199 | Return: Double in 10 Days</p>
-                <button onclick="showPayment('Gold')">Activate Plan</button>
-            </div>
-            <div class="plan-card">
-                <h3>PLATINUM PLAN</h3>
-                <p>Investment: $200 - $499 | Return: Double in 10 Days</p>
-                <button onclick="showPayment('Platinum')">Activate Plan</button>
-            </div>
-            <div class="plan-card">
-                <h3>DIAMOND PLAN</h3>
-                <p>Investment: $500+ | Return: Double in 10 Days</p>
-                <button onclick="showPayment('Diamond')">Activate Plan</button>
+            <h2>Investment Plans</h2>
+            <div class="plans-grid">
+                <div class="plan-card">
+                    <h3 class="plan-name">SILVER PLAN</h3>
+                    <p><strong>Investment:</strong> $10 - $49</p>
+                    <p><strong>Return:</strong> Double in 10 Days</p>
+                    <button onclick="showPlanModal('Silver')">Activate Plan</button>
+                </div>
+
+                <div class="plan-card">
+                    <h3 class="plan-name">GOLD PLAN</h3>
+                    <p><strong>Investment:</strong> $50 - $199</p>
+                    <p><strong>Return:</strong> Double in 10 Days</p>
+                    <button onclick="showPlanModal('Gold')">Activate Plan</button>
+                </div>
+
+                <div class="plan-card">
+                    <h3 class="plan-name">PLATINUM PLAN</h3>
+                    <p><strong>Investment:</strong> $200 - $499</p>
+                    <p><strong>Return:</strong> Double in 10 Days</p>
+                    <button onclick="showPlanModal('Platinum')">Activate Plan</button>
+                </div>
+
+                <div class="plan-card">
+                    <h3 class="plan-name">DIAMOND PLAN</h3>
+                    <p><strong>Investment:</strong> $500+</p>
+                    <p><strong>Return:</strong> Double in 10 Days</p>
+                    <button onclick="showPlanModal('Diamond')">Activate Plan</button>
+                </div>
             </div>
         </div>
 
@@ -241,52 +365,54 @@
 
         <!-- Withdraw Section -->
         <div id="withdraw" class="section">
-            <h2>Withdrawal Request</h2>
-            <input type="number" id="withdrawAmount" placeholder="Enter Amount">
-            <button onclick="requestWithdrawal()">Submit Request</button>
-            <div id="withdrawalMessage"></div>
+            <h2>Withdraw Funds</h2>
+            <div class="withdraw-form">
+                <input type="number" id="withdrawAmount" placeholder="Enter amount to withdraw">
+                <button onclick="requestWithdrawal()">Submit Withdrawal</button>
+                <div id="withdrawMessage" style="margin-top: 1rem;"></div>
+            </div>
         </div>
 
         <!-- Profile Section -->
         <div id="profile" class="section">
             <h2>User Profile</h2>
-            <p>Name: <span id="profileName"></span></p>
-            <p>Balance: $<span id="balance">0</span></p>
-            <p>Active Plan: <span id="activePlan">None</span></p>
+            <div style="margin-top: 1rem;">
+                <p><strong>Username:</strong> <span id="profileUsername"></span></p>
+                <p><strong>Email:</strong> <span id="profileEmail"></span></p>
+                <p><strong>Active Plan:</strong> <span id="profilePlan">None</span></p>
+                <p><strong>Total Investments:</strong> $<span id="totalInvested">0</span></p>
+                <p><strong>Total Withdrawals:</strong> $<span id="totalWithdrawn">0</span></p>
+            </div>
         </div>
 
         <!-- Admin Section -->
         <div id="admin" class="section">
             <h2>Admin Panel</h2>
-            <button onclick="approveAll()">Approve All Withdrawals</button>
-            <div id="adminTransactions"></div>
+            <button onclick="approveAllWithdrawals()">Approve All Pending Withdrawals</button>
+            <div id="adminWithdrawals" style="margin-top: 1rem;"></div>
         </div>
     </div>
 
-    <!-- Payment Modal -->
-    <div class="payment-modal" id="paymentModal">
-        <div class="payment-content">
-            <h2>PAYMENT INSTRUCTIONS</h2>
-            <div class="payment-details">
-                <p>Send payment to: <span>03407699974</span> (Easypaisa)</p>
-                <p>Account Name: <span>Shahnaz Bibi</span></p>
-                <p>Plan: <span id="selectedPlan">Silver Plan</span></p>
-                <p>Amount: $<span id="planAmount">10</span></p>
+    <!-- Plan Modal -->
+    <div class="modal" id="planModal">
+        <div class="modal-content">
+            <h2>Activate <span id="modalPlanName">Silver</span> Plan</h2>
+            <div style="margin: 1rem 0;">
+                <p>Enter investment amount:</p>
+                <input type="number" id="investmentAmount" placeholder="Amount in USD">
             </div>
-            <input type="text" id="transactionId" placeholder="Transaction ID">
-            <input type="number" id="amountSent" placeholder="Amount Sent">
             <div class="modal-buttons">
-                <button onclick="submitPayment()">Confirm Payment</button>
-                <button onclick="closePayment()">Cancel</button>
+                <button onclick="activatePlan()">Confirm</button>
+                <button class="cancel-btn" onclick="closeModal()">Cancel</button>
             </div>
         </div>
     </div>
 
     <script>
-        // User Management
+        // Data Management
         let users = JSON.parse(localStorage.getItem('users')) || [];
         let currentUser = null;
-        let currentPlan = null;
+        let selectedPlan = null;
 
         // User Data Structure
         class UserData {
@@ -294,17 +420,27 @@
                 this.balance = 0;
                 this.activePlan = "None";
                 this.transactions = [];
-                this.withdrawalRequests = [];
+                this.withdrawals = [];
+                this.totalInvested = 0;
+                this.totalWithdrawn = 0;
             }
         }
 
-        // Auth System
+        // Auth Functions
+        function showAuthTab(tabId, element) {
+            document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+            
+            element.classList.add('active');
+            document.getElementById(tabId + 'Form').classList.add('active');
+        }
+
         document.getElementById('signupForm').addEventListener('submit', function(e) {
             e.preventDefault();
-            const username = this[0].value.trim();
-            const email = this[1].value.trim();
-            const password = this[2].value;
-            const confirmPassword = this[3].value;
+            const username = document.getElementById('signupUsername').value.trim();
+            const email = document.getElementById('signupEmail').value.trim();
+            const password = document.getElementById('signupPassword').value;
+            const confirmPassword = document.getElementById('signupConfirmPassword').value;
 
             if (users.some(user => user.username === username)) {
                 alert('Username already exists!');
@@ -316,123 +452,151 @@
                 return;
             }
 
-            users.push({
+            const newUser = {
                 username,
                 email,
                 password,
                 data: new UserData(),
-                isAdmin: username === 'admin'
-            });
+                isAdmin: username.toLowerCase() === 'admin'
+            };
+
+            users.push(newUser);
             localStorage.setItem('users', JSON.stringify(users));
-            alert('Account created successfully!');
+            alert('Account created successfully! Please login.');
+            showAuthTab('login', document.querySelector('[onclick*="login"]'));
             this.reset();
         });
 
         document.getElementById('loginForm').addEventListener('submit', function(e) {
             e.preventDefault();
-            const username = this[0].value.trim();
-            const password = this[1].value;
+            const username = document.getElementById('loginUsername').value.trim();
+            const password = document.getElementById('loginPassword').value;
 
             const user = users.find(u => u.username === username && u.password === password);
             if (user) {
                 currentUser = user;
                 document.querySelector('.auth-container').style.display = 'none';
-                document.querySelector('.platform-container').style.display = 'block';
-                if (user.isAdmin) document.getElementById('adminButton').style.display = 'block';
-                updateProfile();
+                document.querySelector('.platform').style.display = 'block';
+                document.getElementById('adminNavBtn').style.display = user.isAdmin ? 'block' : 'none';
+                updateUI();
             } else {
-                alert('Invalid credentials!');
+                alert('Invalid username or password!');
             }
         });
 
+        function logout() {
+            currentUser = null;
+            document.querySelector('.platform').style.display = 'none';
+            document.querySelector('.auth-container').style.display = 'flex';
+            document.getElementById('loginForm').reset();
+        }
+
         // Platform Functions
-        function showSection(sectionId) {
-            document.querySelectorAll('.section').forEach(sec => sec.classList.remove('active'));
-            document.getElementById(sectionId).classList.add('active');
-            if (sectionId === 'transactions') renderTransactions();
-            if (sectionId === 'admin') renderAdminPanel();
+        function showPlatformTab(tabId) {
+            document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll('.section').forEach(section => section.classList.remove('active'));
+            
+            document.querySelector(`[onclick="showPlatformTab('${tabId}')"]`).classList.add('active');
+            document.getElementById(tabId).classList.add('active');
+
+            if (tabId === 'transactions') renderTransactions();
+            if (tabId === 'admin') renderAdminWithdrawals();
         }
 
-        function showPayment(plan) {
-            currentPlan = plan;
-            document.getElementById('selectedPlan').textContent = plan + ' Plan';
-            document.getElementById('planAmount').textContent = prompt('Enter investment amount for ' + plan + ' Plan:');
-            document.getElementById('paymentModal').style.display = 'flex';
+        function showPlanModal(plan) {
+            selectedPlan = plan;
+            document.getElementById('modalPlanName').textContent = plan;
+            document.getElementById('investmentAmount').value = '';
+            document.getElementById('planModal').style.display = 'flex';
         }
 
-        function submitPayment() {
-            const amount = parseFloat(document.getElementById('planAmount').textContent);
-            currentUser.data.transactions.push({
+        function closeModal() {
+            document.getElementById('planModal').style.display = 'none';
+        }
+
+        function activatePlan() {
+            const amount = parseFloat(document.getElementById('investmentAmount').value);
+            
+            if (isNaN(amount) || amount <= 0) {
+                alert('Please enter a valid amount');
+                return;
+            }
+
+            // Validate plan ranges
+            if (selectedPlan === 'Silver' && (amount < 10 || amount > 49)) {
+                alert('Silver plan requires $10-$49 investment');
+                return;
+            }
+            if (selectedPlan === 'Gold' && (amount < 50 || amount > 199)) {
+                alert('Gold plan requires $50-$199 investment');
+                return;
+            }
+            if (selectedPlan === 'Platinum' && (amount < 200 || amount > 499)) {
+                alert('Platinum plan requires $200-$499 investment');
+                return;
+            }
+            if (selectedPlan === 'Diamond' && amount < 500) {
+                alert('Diamond plan requires minimum $500 investment');
+                return;
+            }
+
+            // Create transaction
+            const transaction = {
                 type: 'Investment',
-                plan: currentPlan,
+                plan: selectedPlan,
                 amount: amount,
-                status: 'Active',
-                date: new Date().toLocaleString()
-            });
-            currentUser.data.balance += amount * 2;
-            currentUser.data.activePlan = currentPlan;
+                date: new Date().toLocaleString(),
+                status: 'Active'
+            };
+
+            currentUser.data.transactions.push(transaction);
+            currentUser.data.activePlan = selectedPlan;
+            currentUser.data.totalInvested += amount;
+            currentUser.data.balance += amount * 2; // Double the investment
+            
             localStorage.setItem('users', JSON.stringify(users));
-            updateProfile();
-            closePayment();
-            alert('Payment confirmed! Returns will be available in 10 days.');
+            updateUI();
+            closeModal();
+            alert(`${selectedPlan} Plan activated successfully! Your $${amount} will double in 10 days.`);
         }
 
         function requestWithdrawal() {
             const amount = parseFloat(document.getElementById('withdrawAmount').value);
-            if (amount > currentUser.data.balance) {
-                alert('Insufficient balance!');
+            
+            if (isNaN(amount) {
+                alert('Please enter a valid amount');
                 return;
             }
-            currentUser.data.withdrawalRequests.push({
+
+            if (amount > currentUser.data.balance) {
+                alert('Insufficient balance');
+                return;
+            }
+
+            const withdrawal = {
                 amount: amount,
-                status: 'Pending',
-                date: new Date().toLocaleString()
-            });
-            document.getElementById('withdrawalMessage').textContent = 'Withdrawal request submitted!';
+                date: new Date().toLocaleString(),
+                status: 'Pending'
+            };
+
+            currentUser.data.withdrawals.push(withdrawal);
             localStorage.setItem('users', JSON.stringify(users));
-            renderTransactions();
+            
+            document.getElementById('withdrawMessage').textContent = `Withdrawal request of $${amount} submitted!`;
+            document.getElementById('withdrawAmount').value = '';
+            updateUI();
         }
 
-        function approveAll() {
-            currentUser.data.withdrawalRequests.forEach(req => {
-                if (req.status === 'Pending') {
-                    req.status = 'Approved';
-                    currentUser.data.balance -= req.amount;
+        function approveAllWithdrawals() {
+            if (!currentUser.isAdmin) return;
+
+            let totalApproved = 0;
+            currentUser.data.withdrawals.forEach(w => {
+                if (w.status === 'Pending') {
+                    w.status = 'Approved';
+                    totalApproved += w.amount;
                 }
             });
-            localStorage.setItem('users', JSON.stringify(users));
-            renderAdminPanel();
-            updateProfile();
-        }
 
-        // Helper Functions
-        function updateProfile() {
-            document.getElementById('balance').textContent = currentUser.data.balance;
-            document.getElementById('activePlan').textContent = currentUser.data.activePlan;
-            document.getElementById('profileName').textContent = currentUser.username;
-        }
-
-        function renderTransactions() {
-            const list = document.getElementById('transactionList');
-            list.innerHTML = currentUser.data.transactions.map(tx => `
-                <div class="transaction-item">
-                    <p>${tx.date} - ${tx.type} (${tx.plan}): $${tx.amount} - ${tx.status}</p>
-                </div>
-            `).join('');
-        }
-
-        function renderAdminPanel() {
-            const list = document.getElementById('adminTransactions');
-            list.innerHTML = currentUser.data.withdrawalRequests.map(req => `
-                <div class="transaction-item">
-                    <p>${req.date} - Withdrawal: $${req.amount} - ${req.status}</p>
-                </div>
-            `).join('');
-        }
-
-        function closePayment() {
-            document.getElementById('paymentModal').style.display = 'none';
-        }
-    </script>
-</body>
-</html>
+            // Update all users' withdrawals
+            users.forEach(use
