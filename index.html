@@ -199,8 +199,8 @@
     <div class="auth-container">
         <div class="container">
             <div class="tabs">
-                <button class="tab active" onclick="showTab('login', event)">Login</button>
-                <button class="tab" onclick="showTab('signup', event)">Sign Up</button>
+                <button class="tab active" onclick="showTab('login')">Login</button>
+                <button class="tab" onclick="showTab('signup')">Sign Up</button>
             </div>
 
             <!-- Login Form -->
@@ -255,72 +255,61 @@
             </div>
 
             <!-- Diamond Plan -->
-            <div class="plan-card">
-                <h3 class="plan-name">DIAMOND PLAN</h3>
-                <p><strong>Investment:</strong> 20000 PKR</p>
-                <p><strong>Return:</strong> 40000 PKR</p>
-                <p><strong>Duration:</strong> 10 Days</p>
-                <p class="withdrawal-note">Withdrawals via Easypaisa/JazzCash</p>
-                <button onclick="showPayment('Diamond', 20000)">Activate Plan</button>
-            </div>
-        </div>
-    </section>
+<div class="plan-card">
+    <h3 class="plan-name">DIAMOND PLAN</h3>
+    <p><strong>Investment:</strong> 20000 PKR</p>
+    <p><strong>Return:</strong> 40000 PKR</p>
+    <p><strong>Duration:</strong> 10 Days</p>
+    <p class="withdrawal-note">Withdrawals via Easypaisa/JazzCash are processed within 24 hours. Please ensure that the details you provide are accurate to avoid delays in processing.</p>
 
-    <!-- Payment Modal -->
-    <div class="payment-modal" id="paymentModal">
-        <div class="payment-content">
-            <h2>Activate Your Plan</h2>
-            <div class="payment-details">
-                <p><span class="highlight">Plan:</span> <span id="selectedPlan">Diamond</span></p>
-                <p><span class="highlight">Investment Amount:</span> <span id="investmentAmount">20000 PKR</span></p>
-                <p><span class="highlight">Withdraw via:</span> Easypaisa/JazzCash</p>
-            </div>
-            <div class="modal-buttons">
-                <button onclick="confirmPayment()">Confirm</button>
-                <button onclick="closeModal()">Cancel</button>
-            </div>
-        </div>
+    <!-- Payment Methods Section -->
+    <div class="payment-methods">
+        <h4>Payment Methods</h4>
+        <ul>
+            <li>Easypaisa</li>
+            <li>JazzCash</li>
+            <li>Bank Transfer</li>
+        </ul>
     </div>
 
-    <!-- Footer -->
-    <footer class="footer">
-        <p>Follow us:</p>
-        <div class="social-links">
-            <a href="https://t.me/TECHBYHUZII" class="social-link" target="_blank"><i class="fab fa-telegram"></i> Telegram</a>
-            <a href="https://wa.me/+923407699974" class="social-link" target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp</a>
-        </div>
-        <p>&copy; 2025 HUZII BALOCH. All rights reserved.</p>
-    </footer>
+    <!-- Activate Plan Button -->
+    <div class="plan-actions">
+        <button class="activate-plan-btn">Activate Plan</button>
+    </div>
+</div>
 
-    <script>
-        // Toggle between login and signup forms
-        function showTab(tabName, event) {
-            const tabs = document.querySelectorAll('.tab');
-            const contents = document.querySelectorAll('.tab-content');
-            tabs.forEach(tab => tab.classList.remove('active'));
-            contents.forEach(content => content.classList.remove('active'));
-            
-            event.target.classList.add('active');
-            document.getElementById(tabName + 'Form').classList.add('active');
-        }
+<!-- Additional Plan Options (e.g., Silver, Gold, Platinum) -->
+<div class="other-plans">
+    <h3>Other Available Plans</h3>
+    <div class="plan-card">
+        <h3 class="plan-name">SILVER PLAN</h3>
+        <p><strong>Investment:</strong> 5000 PKR</p>
+        <p><strong>Return:</strong> 10000 PKR</p>
+        <p><strong>Duration:</strong> 10 Days</p>
+        <button class="activate-plan-btn">Activate Plan</button>
+    </div>
+    <div class="plan-card">
+        <h3 class="plan-name">GOLD PLAN</h3>
+        <p><strong>Investment:</strong> 10000 PKR</p>
+        <p><strong>Return:</strong> 20000 PKR</p>
+        <p><strong>Duration:</strong> 10 Days</p>
+        <button class="activate-plan-btn">Activate Plan</button>
+    </div>
+    <div class="plan-card">
+        <h3 class="plan-name">PLATINUM PLAN</h3>
+        <p><strong>Investment:</strong> 15000 PKR</p>
+        <p><strong>Return:</strong> 30000 PKR</p>
+        <p><strong>Duration:</strong> 10 Days</p>
+        <button class="activate-plan-btn">Activate Plan</button>
+    </div>
+</div>
 
-        // Show the payment modal with selected plan details
-        function showPayment(planName, investment) {
-            document.getElementById('paymentModal').style.display = 'flex';
-            document.getElementById('selectedPlan').innerText = planName;
-            document.getElementById('investmentAmount').innerText = investment + ' PKR';
-        }
-
-        // Confirm payment and close the modal
-        function confirmPayment() {
-            alert("Payment Confirmed! Your plan will be activated.");
-            closeModal();
-        }
-
-        // Close the payment modal
-        function closeModal() {
-            document.getElementById('paymentModal').style.display = 'none';
-        }
-    </script>
-</body>
-</html>
+<!-- Footer Section -->
+<footer class="footer">
+    <div class="social-media-links">
+        <a href="https://www.facebook.com/yourpage" target="_blank">Facebook</a>
+        <a href="https://www.twitter.com/yourpage" target="_blank">Twitter</a>
+        <a href="https://t.me/yourchannel" target="_blank">Telegram</a>
+    </div>
+    <p>&copy; 2025 HUZII BALOCH. All rights reserved.</p>
+</footer>
