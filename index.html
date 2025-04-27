@@ -172,6 +172,186 @@
         .notification.error {
             border-color: #ff0000;
         }
+
+        /* Platform Styles */
+        .platform {
+            display: none;
+            padding: 1rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            border-bottom: 1px solid var(--neon-green);
+        }
+
+        .platform-logo {
+            color: var(--neon-green);
+            font-weight: bold;
+            font-size: 1.5rem;
+            font-family: 'Tektur', sans-serif;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .balance {
+            background: rgba(0, 255, 157, 0.1);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            border: 1px solid var(--neon-green);
+            font-family: 'Tektur', sans-serif;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-around;
+            padding: 1rem 0;
+            border-bottom: 1px solid rgba(0, 255, 157, 0.3);
+            margin-bottom: 1rem;
+        }
+
+        .nav-btn {
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: 'Tektur', sans-serif;
+        }
+
+        .nav-btn:hover {
+            background: rgba(0, 255, 157, 0.1);
+        }
+
+        .nav-btn.active {
+            background: var(--neon-green);
+            color: black;
+        }
+
+        .section {
+            display: none;
+            padding: 1rem;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        /* Plans */
+        .plans-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .plan-card {
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--neon-green);
+            border-radius: 10px;
+            padding: 1.5rem;
+            transition: all 0.3s;
+        }
+
+        .plan-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 255, 157, 0.3);
+        }
+
+        .plan-name {
+            color: var(--neon-green);
+            margin-bottom: 1rem;
+            font-family: 'Tektur', sans-serif;
+        }
+
+        /* Transactions */
+        .transaction-item {
+            padding: 1rem;
+            margin: 1rem 0;
+            background: rgba(0, 0, 0, 0.2);
+            border-left: 4px solid var(--neon-green);
+            border-radius: 5px;
+        }
+
+        /* Withdraw */
+        .withdraw-form {
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        /* Admin */
+        .admin-item {
+            padding: 1rem;
+            margin: 1rem 0;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* Modal */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .modal-content {
+            background: var(--dark-bg);
+            padding: 2rem;
+            border-radius: 15px;
+            border: 2px solid var(--neon-green);
+            width: 90%;
+            max-width: 500px;
+        }
+
+        .highlight {
+            color: var(--neon-green);
+            font-weight: bold;
+        }
+
+        .modal-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .modal-buttons button {
+            flex: 1;
+        }
+
+        .cancel-btn {
+            background: transparent;
+            border: 1px solid var(--neon-green);
+            color: var(--neon-green);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .plans-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            nav {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+        }
     </style>
 </head>
 <body>
@@ -206,6 +386,124 @@
         </div>
     </div>
 
+    <!-- Main Platform -->
+    <div class="platform">
+        <header>
+            <div class="platform-logo">BALOCH INVESTMENTS</div>
+            <div class="user-info">
+                <div class="balance">$<span id="currentBalance">0</span></div>
+                <button onclick="logout()" style="width: auto; padding: 0.5rem 1rem;">Logout</button>
+            </div>
+        </header>
+
+        <nav>
+            <div class="nav-btn active" onclick="showPlatformTab('plans')">Plans</div>
+            <div class="nav-btn" onclick="showPlatformTab('transactions')">Transactions</div>
+            <div class="nav-btn" onclick="showPlatformTab('withdraw')">Withdraw</div>
+            <div class="nav-btn" onclick="showPlatformTab('profile')">Profile</div>
+            <div class="nav-btn" id="adminNavBtn" style="display: none;" onclick="showPlatformTab('admin')">Admin</div>
+        </nav>
+
+        <!-- Plans Section -->
+        <div id="plans" class="section active">
+            <h2>Investment Plans</h2>
+            <div class="plans-grid">
+                <div class="plan-card">
+                    <h3 class="plan-name">SILVER PLAN</h3>
+                    <p><strong>Investment:</strong> 2500 PKR</p>
+                    <p><strong>Return:</strong> 5000 PKR</p>
+                    <p><strong>Daily Profit:</strong> 250 PKR</p>
+                    <p><strong>Duration:</strong> 10 Days</p>
+                    <button onclick="showPlanModal('Silver', 2500, 5000, 250)">Activate Plan</button>
+                </div>
+
+                <div class="plan-card">
+                    <h3 class="plan-name">GOLD PLAN</h3>
+                    <p><strong>Investment:</strong> 5000 PKR</p>
+                    <p><strong>Return:</strong> 10000 PKR</p>
+                    <p><strong>Daily Profit:</strong> 500 PKR</p>
+                    <p><strong>Duration:</strong> 10 Days</p>
+                    <button onclick="showPlanModal('Gold', 5000, 10000, 500)">Activate Plan</button>
+                </div>
+
+                <div class="plan-card">
+                    <h3 class="plan-name">PLATINUM PLAN</h3>
+                    <p><strong>Investment:</strong> 10000 PKR</p>
+                    <p><strong>Return:</strong> 20000 PKR</p>
+                    <p><strong>Daily Profit:</strong> 1000 PKR</p>
+                    <p><strong>Duration:</strong> 10 Days</p>
+                    <button onclick="showPlanModal('Platinum', 10000, 20000, 1000)">Activate Plan</button>
+                </div>
+
+                <div class="plan-card">
+                    <h3 class="plan-name">DIAMOND PLAN</h3>
+                    <p><strong>Investment:</strong> 20000 PKR</p>
+                    <p><strong>Return:</strong> 40000 PKR</p>
+                    <p><strong>Daily Profit:</strong> 2000 PKR</p>
+                    <p><strong>Duration:</strong> 10 Days</p>
+                    <button onclick="showPlanModal('Diamond', 20000, 40000, 2000)">Activate Plan</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Transactions Section -->
+        <div id="transactions" class="section">
+            <h2>Transaction History</h2>
+            <div id="transactionList"></div>
+        </div>
+
+        <!-- Withdraw Section -->
+        <div id="withdraw" class="section">
+            <h2>Withdraw Funds</h2>
+            <div class="withdraw-form">
+                <input type="number" id="withdrawAmount" placeholder="Enter amount to withdraw">
+                <button onclick="requestWithdrawal()">Submit Withdrawal</button>
+                <div id="withdrawMessage" style="margin-top: 1rem;"></div>
+            </div>
+        </div>
+
+        <!-- Profile Section -->
+        <div id="profile" class="section">
+            <h2>User Profile</h2>
+            <div style="margin-top: 1rem;">
+                <p><strong>Username:</strong> <span id="profileUsername"></span></p>
+                <p><strong>Email:</strong> <span id="profileEmail"></span></p>
+                <p><strong>Active Plan:</strong> <span id="profilePlan">None</span></p>
+                <p><strong>Total Investments:</strong> <span id="totalInvested">0</span> PKR</p>
+                <p><strong>Total Withdrawals:</strong> <span id="totalWithdrawn">0</span> PKR</p>
+            </div>
+        </div>
+
+        <!-- Admin Section -->
+        <div id="admin" class="section">
+            <h2>Admin Panel</h2>
+            <button onclick="approveAllWithdrawals()">Approve All Pending Withdrawals</button>
+            <div id="adminWithdrawals" style="margin-top: 1rem;"></div>
+        </div>
+    </div>
+
+    <!-- Plan Modal -->
+    <div class="modal" id="planModal">
+        <div class="modal-content">
+            <h2>Activate <span id="modalPlanName">Silver</span> Plan</h2>
+            <div style="margin: 1rem 0;">
+                <p>Send payment to: <span class="highlight">03407699974</span> (Easypaisa)</p>
+                <p>Account Name: <span class="highlight">Shahnaz Bibi</span></p>
+                <p>Amount: <span id="modalPlanAmount">2500</span> PKR</p>
+                <p>Expected Return: <span id="modalPlanReturn">5000</span> PKR</p>
+                <input type="text" id="transactionId" placeholder="Transaction ID">
+                <input type="number" id="investmentAmount" placeholder="Amount Sent">
+            </div>
+            <div class="modal-buttons">
+                <button onclick="activatePlan()">Confirm Payment</button>
+                <button class="cancel-btn" onclick="closeModal()">Cancel</button>
+            </div>
+                        <p style="margin-top: 1rem; color: var(--neon-green);">
+                If not activated within 10 minutes, contact: <span class="highlight">03407699974</span>
+            </p>
+        </div>
+    </div>
+
     <!-- Notification -->
     <div class="notification" id="notification">
         <p id="notification-message"></p>
@@ -214,30 +512,40 @@
     <script>
         // User Management
         let users = JSON.parse(localStorage.getItem('users')) || [];
-        
-        // DOM Elements
-        const loginTab = document.getElementById('loginTab');
-        const signupTab = document.getElementById('signupTab');
-        const loginForm = document.getElementById('loginForm');
-        const signupForm = document.getElementById('signupForm');
-        
-        // Tab Switching - Fixed Version
-        loginTab.addEventListener('click', function() {
+        let currentUser = null;
+        let selectedPlan = null;
+        let currentPlanDetails = null;
+
+        // User Data Structure
+        class UserData {
+            constructor() {
+                this.balance = 0;
+                this.activePlan = null;
+                this.transactions = [];
+                this.withdrawals = [];
+                this.totalInvested = 0;
+                this.totalWithdrawn = 0;
+                this.planStartDate = null;
+                this.planEndDate = null;
+            }
+        }
+
+        // Auth Functions
+        document.getElementById('loginTab').addEventListener('click', function() {
             loginTab.classList.add('active');
             signupTab.classList.remove('active');
             loginForm.classList.add('active');
             signupForm.classList.remove('active');
         });
         
-        signupTab.addEventListener('click', function() {
+        document.getElementById('signupTab').addEventListener('click', function() {
             signupTab.classList.add('active');
             loginTab.classList.remove('active');
             signupForm.classList.add('active');
             loginForm.classList.remove('active');
         });
 
-        // Signup - Fixed Version
-        signupForm.addEventListener('submit', function(e) {
+        document.getElementById('signupForm').addEventListener('submit', function(e) {
             e.preventDefault();
             const username = document.getElementById('signupUsername').value.trim();
             const email = document.getElementById('signupEmail').value.trim();
@@ -254,41 +562,298 @@
                 return;
             }
 
-            const newUser = { 
-                username, 
-                email, 
+            const newUser = {
+                username,
+                email,
                 password,
-                joined: new Date().toLocaleDateString(),
-                activePlan: null,
-                transactions: []
+                data: new UserData(),
+                isAdmin: username.toLowerCase() === 'admin'
             };
-            
+
             users.push(newUser);
             localStorage.setItem('users', JSON.stringify(users));
-            showNotification('Account created successfully!', 'success');
-            
-            // Switch to login tab after signup
+            showNotification('Account created successfully! Please login.', 'success');
             loginTab.click();
-            
-            // Clear form
             this.reset();
         });
 
-        // Login - Fixed Version
-        loginForm.addEventListener('submit', function(e) {
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
             e.preventDefault();
             const username = document.getElementById('loginUsername').value.trim();
             const password = document.getElementById('loginPassword').value;
 
             const user = users.find(u => u.username === username && u.password === password);
             if (user) {
-                showNotification('Login successful!', 'success');
-                // Here you would typically redirect to the dashboard
-                // window.location.href = "dashboard.html";
+                currentUser = user;
+                document.querySelector('.auth-container').style.display = 'none';
+                document.querySelector('.platform').style.display = 'block';
+                document.getElementById('adminNavBtn').style.display = user.isAdmin ? 'block' : 'none';
+                updateUI();
+                
+                // Check if user has active plan
+                if (user.data.activePlan) {
+                    startPlanProgress();
+                }
             } else {
                 showNotification('Invalid username or password!', 'error');
             }
         });
+
+        function logout() {
+            currentUser = null;
+            document.querySelector('.platform').style.display = 'none';
+            document.querySelector('.auth-container').style.display = 'flex';
+            document.getElementById('loginForm').reset();
+        }
+
+        // Platform Functions
+        function showPlatformTab(tabId) {
+            document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll('.section').forEach(section => section.classList.remove('active'));
+            
+            document.querySelector(`[onclick="showPlatformTab('${tabId}')"]`).classList.add('active');
+            document.getElementById(tabId).classList.add('active');
+
+            if (tabId === 'transactions') renderTransactions();
+            if (tabId === 'admin') renderAdminWithdrawals();
+        }
+
+        function showPlanModal(plan, amount, planReturn, dailyProfit) {
+            selectedPlan = plan;
+            currentPlanDetails = {
+                name: plan,
+                amount: amount,
+                return: planReturn,
+                dailyProfit: dailyProfit
+            };
+            
+            document.getElementById('modalPlanName').textContent = plan;
+            document.getElementById('modalPlanAmount').textContent = amount;
+            document.getElementById('modalPlanReturn').textContent = planReturn;
+            document.getElementById('investmentAmount').value = amount;
+            document.getElementById('planModal').style.display = 'flex';
+        }
+
+        function closeModal() {
+            document.getElementById('planModal').style.display = 'none';
+        }
+
+        function activatePlan() {
+            const transactionId = document.getElementById('transactionId').value;
+            const amountSent = parseFloat(document.getElementById('investmentAmount').value);
+            
+            if (!transactionId || isNaN(amountSent)) {
+                showNotification('Please fill all fields', 'error');
+                return;
+            }
+
+            if (amountSent !== currentPlanDetails.amount) {
+                showNotification(`Amount must be exactly ${currentPlanDetails.amount} PKR`, 'error');
+                return;
+            }
+
+            // Create transaction
+            const transaction = {
+                id: transactionId,
+                type: 'Investment',
+                plan: currentPlanDetails.name,
+                amount: currentPlanDetails.amount,
+                return: currentPlanDetails.return,
+                date: new Date().toLocaleString(),
+                status: 'Pending Activation'
+            };
+
+            currentUser.data.transactions.push(transaction);
+            currentUser.data.totalInvested += currentPlanDetails.amount;
+            
+            localStorage.setItem('users', JSON.stringify(users));
+            updateUI();
+            closeModal();
+            
+            // Simulate plan activation after 1 hour (for demo)
+            setTimeout(() => {
+                completePlanActivation(transactionId);
+            }, 1000); // Changed to 1 second for demo, should be 3600000 (1 hour) in production
+            
+            showNotification('Payment submitted! Your plan will be activated within 10 minutes.', 'success');
+        }
+
+        function completePlanActivation(transactionId) {
+            const transaction = currentUser.data.transactions.find(t => t.id === transactionId);
+            if (transaction) {
+                transaction.status = 'Active';
+                
+                currentUser.data.activePlan = {
+                    name: currentPlanDetails.name,
+                    amount: currentPlanDetails.amount,
+                    return: currentPlanDetails.return,
+                    dailyProfit: currentPlanDetails.dailyProfit,
+                    startDate: new Date(),
+                    endDate: new Date(Date.now() + 10 * 24 * 60 * 60 * 1000) // 10 days from now
+                };
+                
+                localStorage.setItem('users', JSON.stringify(users));
+                updateUI();
+                startPlanProgress();
+                
+                showNotification('Plan activated successfully! Your profit will be added after 24 hours.', 'success');
+            }
+        }
+
+        function startPlanProgress() {
+            if (!currentUser.data.activePlan) return;
+            
+            // Calculate daily profit and update balance
+            const dailyProfit = currentUser.data.activePlan.dailyProfit;
+            const now = new Date();
+            const startDate = new Date(currentUser.data.activePlan.startDate);
+            const daysPassed = Math.floor((now - startDate) / (1000 * 60 * 60 * 24));
+            
+            if (daysPassed > 0) {
+                const profitEarned = daysPassed * dailyProfit;
+                currentUser.data.balance = profitEarned;
+                localStorage.setItem('users', JSON.stringify(users));
+                updateUI();
+            }
+        }
+
+        function requestWithdrawal() {
+            const amount = parseFloat(document.getElementById('withdrawAmount').value);
+            
+            if (isNaN(amount)) {
+                showNotification('Please enter a valid amount', 'error');
+                return;
+            }
+
+            if (amount > currentUser.data.balance) {
+                showNotification('Insufficient balance', 'error');
+                return;
+            }
+
+            const withdrawal = {
+                amount: amount,
+                date: new Date().toLocaleString(),
+                status: 'Pending'
+            };
+
+            currentUser.data.withdrawals.push(withdrawal);
+            currentUser.data.totalWithdrawn += amount;
+            currentUser.data.balance -= amount;
+            
+            localStorage.setItem('users', JSON.stringify(users));
+            
+            document.getElementById('withdrawMessage').textContent = `Withdrawal request of ${amount} PKR submitted!`;
+            document.getElementById('withdrawAmount').value = '';
+            updateUI();
+            showNotification('Withdrawal request submitted!', 'success');
+        }
+
+        function approveAllWithdrawals() {
+            if (!currentUser.isAdmin) return;
+
+            let totalApproved = 0;
+            users.forEach(user => {
+                user.data.withdrawals.forEach(w => {
+                    if (w.status === 'Pending') {
+                        w.status = 'Approved';
+                        totalApproved += w.amount;
+                    }
+                });
+            });
+
+            localStorage.setItem('users', JSON.stringify(users));
+            renderAdminWithdrawals();
+            showNotification(`Approved all pending withdrawals (Total: ${totalApproved} PKR)`, 'success');
+        }
+
+        // UI Update Functions
+        function updateUI() {
+            if (!currentUser) return;
+            
+            // Update balance
+            document.getElementById('currentBalance').textContent = currentUser.data.balance.toFixed(2);
+            
+            // Update profile
+            document.getElementById('profileUsername').textContent = currentUser.username;
+            document.getElementById('profileEmail').textContent = currentUser.email;
+            
+            if (currentUser.data.activePlan) {
+                document.getElementById('profilePlan').textContent = `${currentUser.data.activePlan.name} Plan`;
+            } else {
+                document.getElementById('profilePlan').textContent = 'None';
+            }
+            
+            document.getElementById('totalInvested').textContent = currentUser.data.totalInvested.toFixed(2);
+            document.getElementById('totalWithdrawn').textContent = currentUser.data.totalWithdrawn.toFixed(2);
+            
+            // Update transactions if on that tab
+            if (document.getElementById('transactions').classList.contains('active')) {
+                renderTransactions();
+            }
+        }
+
+        function renderTransactions() {
+            const container = document.getElementById('transactionList');
+            container.innerHTML = '';
+            
+            if (currentUser.data.transactions.length === 0) {
+                container.innerHTML = '<p>No transactions yet</p>';
+                return;
+            }
+
+            currentUser.data.transactions.forEach(tx => {
+                const txElement = document.createElement('div');
+                txElement.className = 'transaction-item';
+                txElement.innerHTML = `
+                    <p><strong>${tx.type}</strong> - ${tx.plan} Plan</p>
+                    <p>Amount: ${tx.amount} PKR</p>
+                    <p>Expected Return: ${tx.return} PKR</p>
+                    <p>Date: ${tx.date}</p>
+                    <p>Status: ${tx.status}</p>
+                `;
+                container.appendChild(txElement);
+            });
+        }
+
+        function renderAdminWithdrawals() {
+            if (!currentUser.isAdmin) return;
+
+            const container = document.getElementById('adminWithdrawals');
+            container.innerHTML = '';
+            
+            // Collect all withdrawals from all users
+            let allWithdrawals = [];
+            users.forEach(user => {
+                user.data.withdrawals.forEach(w => {
+                    allWithdrawals.push({
+                        username: user.username,
+                        amount: w.amount,
+                        date: w.date,
+                        status: w.status
+                    });
+                });
+            });
+
+            if (allWithdrawals.length === 0) {
+                container.innerHTML = '<p>No withdrawal requests</p>';
+                return;
+            }
+
+            // Sort by date (newest first)
+            allWithdrawals.sort((a, b) => new Date(b.date) - new Date(a.date));
+
+            allWithdrawals.forEach(w => {
+                const wElement = document.createElement('div');
+                wElement.className = 'admin-item';
+                wElement.innerHTML = `
+                    <div>
+                        <p><strong>${w.username}</strong> - ${w.amount} PKR</p>
+                        <p>${w.date} - Status: ${w.status}</p>
+                    </div>
+                `;
+                container.appendChild(wElement);
+            });
+        }
 
         // Notification System
         function showNotification(message, type) {
@@ -302,17 +867,27 @@
             }, 5000);
         }
 
-        // Initial check for users in localStorage (for demo)
+        // Initialize
         if (users.length === 0) {
-            // Add a demo user for testing
-            users.push({
-                username: "demo",
-                email: "demo@baloch.com",
-                password: "demo123",
-                joined: new Date().toLocaleDateString(),
-                activePlan: null,
-                transactions: []
-            });
+            // Create default admin user
+            const adminUser = {
+                username: 'admin',
+                email: 'admin@baloch.com',
+                password: 'admin123',
+                isAdmin: true,
+                data: new UserData()
+            };
+            
+            // Create demo user
+            const demoUser = {
+                username: 'demo',
+                email: 'demo@baloch.com',
+                password: 'demo123',
+                isAdmin: false,
+                data: new UserData()
+            };
+            
+            users.push(adminUser, demoUser);
             localStorage.setItem('users', JSON.stringify(users));
         }
     </script>
