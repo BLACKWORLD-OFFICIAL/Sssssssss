@@ -23,23 +23,34 @@
             transition: background 0.3s;
         }
 
-        /* Auth Container */
+        /* Auth Container - Custom Baloch Style */
         .auth-container {
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            background: radial-gradient(circle at center, #0a0a1a, #000);
+            background: radial-gradient(circle at center, #1a0a0a, #000);
         }
 
         .container {
-            background: rgba(10, 20, 40, 0.85);
+            background: rgba(20, 10, 10, 0.9);
             padding: 2rem;
             border-radius: 15px;
             border: 2px solid var(--neon-green);
             box-shadow: 0 0 20px rgba(0, 255, 157, 0.3);
             width: 90%;
             max-width: 450px;
+            animation: glow 2s infinite alternate;
+        }
+
+        @keyframes glow {
+            from {
+                box-shadow: 0 0 10px rgba(0, 255, 157, 0.3);
+            }
+            to {
+                box-shadow: 0 0 20px rgba(0, 255, 157, 0.6), 
+                            0 0 30px rgba(0, 102, 255, 0.4);
+            }
         }
 
         .tabs {
@@ -57,11 +68,16 @@
             color: var(--neon-green);
             cursor: pointer;
             transition: all 0.3s;
+            font-family: 'Tektur', sans-serif;
+            font-weight: bold;
+            letter-spacing: 1px;
         }
 
         .tab.active {
             background: linear-gradient(45deg, var(--neon-green), var(--neon-blue));
             color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 255, 157, 0.5);
         }
 
         .tab-content {
@@ -80,6 +96,14 @@
             border: 1px solid var(--neon-green);
             color: white;
             border-radius: 8px;
+            font-family: 'Roboto', sans-serif;
+            transition: all 0.3s;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: var(--neon-blue);
+            box-shadow: 0 0 10px rgba(0, 102, 255, 0.5);
         }
 
         button {
@@ -93,6 +117,10 @@
             cursor: pointer;
             margin-top: 1rem;
             transition: all 0.3s;
+            font-family: 'Tektur', sans-serif;
+            font-size: 1.1rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
         }
 
         button:hover {
@@ -100,177 +128,29 @@
             box-shadow: 0 5px 15px rgba(0, 255, 157, 0.5);
         }
 
-        /* Dashboard Section */
-        .dashboard {
-            display: none;
-            padding: 2rem;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .profile-section {
-            background: rgba(10, 20, 40, 0.7);
-            border: 1px solid var(--neon-green);
-            border-radius: 10px;
-            padding: 1.5rem;
-            margin-bottom: 2rem;
-        }
-
-        .profile-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 1rem;
-        }
-
-        .dark-mode-toggle {
-            background: transparent;
-            border: 1px solid var(--neon-green);
-            color: var(--neon-green);
-            padding: 0.5rem 1rem;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        .user-info {
-            margin-bottom: 1rem;
-        }
-
-        .active-plan {
-            background: rgba(0, 255, 157, 0.1);
-            padding: 1rem;
-            border-radius: 8px;
-            margin-top: 1rem;
-        }
-
-        .progress-container {
-            width: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
-            border-radius: 5px;
-            margin: 1rem 0;
-        }
-
-        .progress-bar {
-            height: 10px;
-            background: linear-gradient(90deg, var(--neon-green), var(--neon-blue));
-            border-radius: 5px;
-            width: 0%;
-            transition: width 0.5s;
-        }
-
-        .time-remaining {
-            color: var(--neon-green);
-            font-size: 0.9rem;
-            margin-top: 0.5rem;
-        }
-
-        /* Plans Section */
-        .plans-section {
-            display: none;
-            padding: 2rem;
+        .logo {
+            text-align: center;
+            margin-bottom: 1.5rem;
             font-family: 'Tektur', sans-serif;
         }
 
-        .plans-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1.5rem;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .plan-card {
-            background: rgba(10, 20, 40, 0.7);
-            border: 1px solid var(--neon-green);
-            border-radius: 10px;
-            padding: 1.5rem;
-            transition: transform 0.3s;
-        }
-
-        .plan-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 5px 15px rgba(0, 255, 157, 0.3);
-        }
-
-        .plan-name {
+        .logo h1 {
             color: var(--neon-green);
-            margin-bottom: 1rem;
+            text-shadow: 0 0 10px rgba(0, 255, 157, 0.7);
+            margin-bottom: 0.5rem;
         }
 
-        .withdrawal-note {
+        .logo p {
             color: var(--neon-blue);
             font-size: 0.9rem;
-            margin: 1rem 0;
-            padding: 0.5rem;
-            background: rgba(0, 102, 255, 0.1);
-            border-radius: 5px;
         }
 
-        /* Testimonials Section */
-        .testimonials {
-            margin: 3rem auto;
-            max-width: 1200px;
-            padding: 0 2rem;
-        }
-
-        .testimonial-card {
-            background: rgba(10, 20, 40, 0.7);
-            border: 1px solid var(--neon-green);
-            border-radius: 10px;
-            padding: 1.5rem;
-            margin: 1rem 0;
-        }
-
-        .testimonial-author {
-            color: var(--neon-green);
-            margin-top: 1rem;
-            font-style: italic;
-        }
-
-        /* Payment Modal */
-        .payment-modal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.8);
-            display: none;
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-        }
-
-        .payment-content {
-            background: var(--dark-bg);
-            padding: 2rem;
-            border-radius: 15px;
-            border: 2px solid var(--neon-green);
-            width: 90%;
-            max-width: 500px;
-        }
-
-        .payment-details p {
-            margin: 1rem 0;
-        }
-
-        .highlight {
-            color: var(--neon-green);
-            font-weight: bold;
-        }
-
-        .modal-buttons {
-            display: flex;
-            gap: 1rem;
-            margin-top: 1.5rem;
-        }
-
-        /* Notifications */
+        /* Notification */
         .notification {
             position: fixed;
             top: 20px;
             right: 20px;
-            background: rgba(10, 20, 40, 0.9);
+            background: rgba(20, 10, 10, 0.9);
             border: 1px solid var(--neon-green);
             border-radius: 8px;
             padding: 1rem;
@@ -292,228 +172,37 @@
         .notification.error {
             border-color: #ff0000;
         }
-
-        /* Footer */
-        .footer {
-            text-align: center;
-            padding: 3rem 2rem;
-            margin-top: 3rem;
-            border-top: 1px solid var(--neon-green);
-        }
-
-        .social-links {
-            display: flex;
-            justify-content: center;
-            gap: 1.5rem;
-            margin: 1.5rem 0;
-        }
-
-        .social-link {
-            color: var(--neon-green);
-            text-decoration: none;
-            transition: color 0.3s;
-        }
-
-        .social-link:hover {
-            color: var(--neon-blue);
-        }
-
-        /* Light Mode */
-        body.light-mode {
-            --dark-bg: #f0f0f0;
-            --text-white: #333333;
-            background: #ffffff;
-        }
-
-        body.light-mode .container,
-        body.light-mode .profile-section,
-        body.light-mode .plan-card,
-        body.light-mode .testimonial-card,
-        body.light-mode .payment-content {
-            background: rgba(255, 255, 255, 0.9);
-            color: #333333;
-            border-color: var(--neon-blue);
-        }
-
-        body.light-mode input {
-            background: rgba(255, 255, 255, 0.8);
-            color: #333333;
-            border-color: var(--neon-blue);
-        }
-
-        body.light-mode .tab {
-            background: rgba(255, 255, 255, 0.8);
-            color: var(--neon-blue);
-        }
-
-        body.light-mode .notification {
-            background: rgba(255, 255, 255, 0.95);
-            color: #333333;
-        }
     </style>
 </head>
 <body>
     <!-- Auth Section -->
     <div class="auth-container">
         <div class="container">
+            <div class="logo">
+                <h1>BALOCH EARNING</h1>
+                <p>Trusted Investment Platform Since 2020</p>
+            </div>
+            
             <div class="tabs">
-                <button class="tab active" onclick="showTab('login', event)">Login</button>
-                <button class="tab" onclick="showTab('signup', event)">Sign Up</button>
+                <button class="tab active" id="loginTab">LOGIN</button>
+                <button class="tab" id="signupTab">SIGN UP</button>
             </div>
             
             <!-- Login Form -->
             <form id="loginForm" class="tab-content active">
-                <input type="text" placeholder="Username" required>
-                <input type="password" placeholder="Password" required>
-                <button type="submit">Login</button>
+                <input type="text" placeholder="Username" required id="loginUsername">
+                <input type="password" placeholder="Password" required id="loginPassword">
+                <button type="submit">LOGIN</button>
             </form>
 
             <!-- Signup Form -->
             <form id="signupForm" class="tab-content">
-                <input type="text" placeholder="Username" required>
-                <input type="email" placeholder="Email" required>
-                <input type="password" placeholder="Password" required>
-                <input type="password" placeholder="Confirm Password" required>
-                <button type="submit">Create Account</button>
+                <input type="text" placeholder="Username" required id="signupUsername">
+                <input type="email" placeholder="Email" required id="signupEmail">
+                <input type="password" placeholder="Password" required id="signupPassword">
+                <input type="password" placeholder="Confirm Password" required id="signupConfirmPassword">
+                <button type="submit">CREATE ACCOUNT</button>
             </form>
-        </div>
-    </div>
-
-    <!-- Dashboard Section -->
-    <div class="dashboard" id="dashboard">
-        <div class="profile-section">
-            <div class="profile-header">
-                <h2>USER PROFILE</h2>
-                <button class="dark-mode-toggle" onclick="toggleDarkMode()">Toggle Dark Mode</button>
-            </div>
-            
-            <div class="user-info">
-                <p><strong>Username:</strong> <span id="profile-username"></span></p>
-                <p><strong>Email:</strong> <span id="profile-email"></span></p>
-                <p><strong>Joined:</strong> <span id="profile-joined"></span></p>
-            </div>
-            
-            <div class="active-plan" id="active-plan-section">
-                <h3>ACTIVE PLAN</h3>
-                <p><strong>Plan:</strong> <span id="current-plan">No active plan</span></p>
-                <p><strong>Investment:</strong> <span id="current-investment">0</span> PKR</p>
-                <p><strong>Expected Return:</strong> <span id="expected-return">0</span> PKR</p>
-                <p><strong>Status:</strong> <span id="plan-status">Not activated</span></p>
-                
-                <div class="progress-container">
-                    <div class="progress-bar" id="plan-progress"></div>
-                </div>
-                
-                <p class="time-remaining" id="time-remaining"></p>
-                <p id="profit-message"></p>
-            </div>
-        </div>
-
-        <!-- Plans Section -->
-        <section class="plans-section" id="plansPage">
-            <h2 style="text-align: center; margin-bottom: 2rem;">INVESTMENT PLANS</h2>
-            <div class="plans-grid">
-                <!-- Silver Plan -->
-                <div class="plan-card">
-                    <h3 class="plan-name">SILVER PLAN</h3>
-                    <p><strong>Investment:</strong> 2500 PKR</p>
-                    <p><strong>Return:</strong> 5000 PKR</p>
-                    <p><strong>Daily Profit:</strong> 250 PKR</p>
-                    <p><strong>Duration:</strong> 10 Days</p>
-                    <p class="withdrawal-note">Withdrawals via Easypaisa/JazzCash</p>
-                    <button onclick="showPayment('Silver', 2500, 5000, 250)">Activate Plan</button>
-                </div>
-
-                <!-- Gold Plan -->
-                <div class="plan-card">
-                    <h3 class="plan-name">GOLD PLAN</h3>
-                    <p><strong>Investment:</strong> 5000 PKR</p>
-                    <p><strong>Return:</strong> 10000 PKR</p>
-                    <p><strong>Daily Profit:</strong> 500 PKR</p>
-                    <p><strong>Duration:</strong> 10 Days</p>
-                    <p class="withdrawal-note">Withdrawals via Easypaisa/JazzCash</p>
-                    <button onclick="showPayment('Gold', 5000, 10000, 500)">Activate Plan</button>
-                </div>
-
-                <!-- Platinum Plan -->
-                <div class="plan-card">
-                    <h3 class="plan-name">PLATINUM PLAN</h3>
-                    <p><strong>Investment:</strong> 10000 PKR</p>
-                    <p><strong>Return:</strong> 20000 PKR</p>
-                    <p><strong>Daily Profit:</strong> 1000 PKR</p>
-                    <p><strong>Duration:</strong> 10 Days</p>
-                    <p class="withdrawal-note">Withdrawals via Easypaisa/JazzCash</p>
-                    <button onclick="showPayment('Platinum', 10000, 20000, 1000)">Activate Plan</button>
-                </div>
-
-                <!-- Diamond Plan -->
-                <div class="plan-card">
-                    <h3 class="plan-name">DIAMOND PLAN</h3>
-                    <p><strong>Investment:</strong> 20000 PKR</p>
-                    <p><strong>Return:</strong> 40000 PKR</p>
-                    <p><strong>Daily Profit:</strong> 2000 PKR</p>
-                    <p><strong>Duration:</strong> 10 Days</p>
-                    <p class="withdrawal-note">Withdrawals via Easypaisa/JazzCash</p>
-                    <button onclick="showPayment('Diamond', 20000, 40000, 2000)">Activate Plan</button>
-                </div>
-            </div>
-        </section>
-
-        <!-- Testimonials Section -->
-        <section class="testimonials">
-            <h2 style="text-align: center; margin-bottom: 1rem;">TESTIMONIALS</h2>
-            <div class="testimonial-card">
-                <p>"I invested in the Gold plan and got double returns in just 10 days. Highly recommended platform!"</p>
-                <p class="testimonial-author">- Ahmed Khan, Karachi</p>
-            </div>
-            <div class="testimonial-card">
-                <p>"Trustworthy service with timely payments. I've been using this platform for 6 months now."</p>
-                <p class="testimonial-author">- Fatima Baloch, Quetta</p>
-            </div>
-            <div class="testimonial-card">
-                <p>"The Platinum plan changed my financial situation. Received my returns exactly as promised."</p>
-                <p class="testimonial-author">- Usman Ali, Lahore</p>
-            </div>
-        </section>
-
-        <!-- Footer -->
-        <footer class="footer">
-            <h3>TRUSTED SINCE 3 YEARS</h3>
-            <div class="social-links">
-                <a href="https://wa.me/923407699974" class="social-link" target="_blank">
-                    <i class="fab fa-whatsapp"></i> +92 340 7699974
-                </a>
-                <a href="https://t.me/TECHBYHUZII" class="social-link" target="_blank">
-                    <i class="fab fa-telegram"></i> TECHBYHUZII
-                </a>
-            </div>
-            <p>© 2023 BALOCH EARNING PLATFORM</p>
-        </footer>
-    </div>
-
-    <!-- Payment Modal -->
-    <div class="payment-modal" id="paymentModal">
-        <div class="payment-content">
-            <h2>PAYMENT INSTRUCTIONS</h2>
-            <div class="payment-details">
-                <p>Send payment to: <span class="highlight">03407699974</span> (Easypaisa)</p>
-                <p>Account Name: <span class="highlight">Shahnaz Bibi</span></p>
-                <p>Plan: <span id="selectedPlan">Silver Plan</span></p>
-                <p>Amount: <span id="planAmount">2500</span> PKR</p>
-                <p>Expected Return: <span id="planReturn">5000</span> PKR</p>
-            </div>
-
-            <input type="text" placeholder="Transaction ID" id="transactionId">
-            <input type="number" placeholder="Amount Sent" id="amountSent">
-
-            <div class="modal-buttons">
-                <button onclick="submitPayment()">Confirm Payment</button>
-                <button onclick="closePayment()" style="background: transparent; border: 1px solid var(--neon-green); color: var(--neon-green);">Cancel</button>
-            </div>
-
-            <p style="margin-top: 1rem; color: var(--neon-green);">
-                If not activated within 10 minutes, contact: <span class="highlight">03407699974</span>
-            </p>
         </div>
     </div>
 
@@ -525,31 +214,35 @@
     <script>
         // User Management
         let users = JSON.parse(localStorage.getItem('users')) || [];
-        let currentUser = null;
-        let currentPlan = null;
-        let planInterval = null;
+        
+        // DOM Elements
+        const loginTab = document.getElementById('loginTab');
+        const signupTab = document.getElementById('signupTab');
+        const loginForm = document.getElementById('loginForm');
+        const signupForm = document.getElementById('signupForm');
+        
+        // Tab Switching - Fixed Version
+        loginTab.addEventListener('click', function() {
+            loginTab.classList.add('active');
+            signupTab.classList.remove('active');
+            loginForm.classList.add('active');
+            signupForm.classList.remove('active');
+        });
+        
+        signupTab.addEventListener('click', function() {
+            signupTab.classList.add('active');
+            loginTab.classList.remove('active');
+            signupForm.classList.add('active');
+            loginForm.classList.remove('active');
+        });
 
-        // Initialize dark mode preference
-        if (localStorage.getItem('darkMode') === 'false') {
-            document.body.classList.add('light-mode');
-        }
-
-        // Tab Switching
-        function showTab(tabId, event) {
-            document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
-            document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
-            
-            event.target.classList.add('active');
-            document.getElementById(tabId + 'Form').classList.add('active');
-        }
-
-        // Signup
-        document.getElementById('signupForm').addEventListener('submit', function(e) {
+        // Signup - Fixed Version
+        signupForm.addEventListener('submit', function(e) {
             e.preventDefault();
-            const username = this[0].value.trim();
-            const email = this[1].value.trim();
-            const password = this[2].value;
-            const confirmPassword = this[3].value;
+            const username = document.getElementById('signupUsername').value.trim();
+            const email = document.getElementById('signupEmail').value.trim();
+            const password = document.getElementById('signupPassword').value;
+            const confirmPassword = document.getElementById('signupConfirmPassword').value;
 
             if (users.some(user => user.username === username)) {
                 showNotification('Username already exists!', 'error');
@@ -574,253 +267,52 @@
             localStorage.setItem('users', JSON.stringify(users));
             showNotification('Account created successfully!', 'success');
             
-            // Switch to login tab
-            document.querySelector('.tab.active').classList.remove('active');
-            document.querySelector('.tab-content.active').classList.remove('active');
-            document.querySelector('[onclick*="login"]').classList.add('active');
-            document.getElementById('loginForm').classList.add('active');
+            // Switch to login tab after signup
+            loginTab.click();
             
+            // Clear form
             this.reset();
         });
 
-        // Login
-        document.getElementById('loginForm').addEventListener('submit', function(e) {
+        // Login - Fixed Version
+        loginForm.addEventListener('submit', function(e) {
             e.preventDefault();
-            const username = this[0].value.trim();
-            const password = this[1].value;
+            const username = document.getElementById('loginUsername').value.trim();
+            const password = document.getElementById('loginPassword').value;
 
             const user = users.find(u => u.username === username && u.password === password);
             if (user) {
-                currentUser = user;
-                document.querySelector('.auth-container').style.display = 'none';
-                document.querySelector('.platform').style.display = 'block';
-                document.getElementById('adminNavBtn').style.display = user.isAdmin ? 'block' : 'none';
-                updateUI();
+                showNotification('Login successful!', 'success');
+                // Here you would typically redirect to the dashboard
+                // window.location.href = "dashboard.html";
             } else {
-                alert('Invalid username or password!');
+                showNotification('Invalid username or password!', 'error');
             }
         });
 
-        function logout() {
-            currentUser = null;
-            document.querySelector('.platform').style.display = 'none';
-            document.querySelector('.auth-container').style.display = 'flex';
-            document.getElementById('loginForm').reset();
-        }
-
-        // Platform Functions
-        function showPlatformTab(tabId) {
-            document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
-            document.querySelectorAll('.section').forEach(section => section.classList.remove('active'));
+        // Notification System
+        function showNotification(message, type) {
+            const notification = document.getElementById('notification');
+            notification.style.display = 'block';
+            notification.className = `notification ${type}`;
+            document.getElementById('notification-message').textContent = message;
             
-            document.querySelector(`[onclick="showPlatformTab('${tabId}')"]`).classList.add('active');
-            document.getElementById(tabId).classList.add('active');
-
-            if (tabId === 'transactions') renderTransactions();
-            if (tabId === 'admin') renderAdminWithdrawals();
+            setTimeout(() => {
+                notification.style.display = 'none';
+            }, 5000);
         }
 
-        function showPlanModal(plan) {
-            selectedPlan = plan;
-            document.getElementById('modalPlanName').textContent = plan;
-            document.getElementById('investmentAmount').value = '';
-            document.getElementById('planModal').style.display = 'flex';
-        }
-
-        function closeModal() {
-            document.getElementById('planModal').style.display = 'none';
-        }
-
-        function activatePlan() {
-            const amount = parseFloat(document.getElementById('investmentAmount').value);
-            
-            if (isNaN(amount) || amount <= 0) {
-                alert('Please enter a valid amount');
-                return;
-            }
-
-            // Validate plan ranges
-            if (selectedPlan === 'Silver' && (amount < 10 || amount > 49)) {
-                alert('Silver plan requires $10-$49 investment');
-                return;
-            }
-            if (selectedPlan === 'Gold' && (amount < 50 || amount > 199)) {
-                alert('Gold plan requires $50-$199 investment');
-                return;
-            }
-            if (selectedPlan === 'Platinum' && (amount < 200 || amount > 499)) {
-                alert('Platinum plan requires $200-$499 investment');
-                return;
-            }
-            if (selectedPlan === 'Diamond' && amount < 500) {
-                alert('Diamond plan requires minimum $500 investment');
-                return;
-            }
-
-            // Create transaction
-            const transaction = {
-                type: 'Investment',
-                plan: selectedPlan,
-                amount: amount,
-                date: new Date().toLocaleString(),
-                status: 'Active'
-            };
-
-            currentUser.data.transactions.push(transaction);
-            currentUser.data.activePlan = selectedPlan;
-            currentUser.data.totalInvested += amount;
-            currentUser.data.balance += amount * 2; // Double the investment
-            
-            localStorage.setItem('users', JSON.stringify(users));
-            updateUI();
-            closeModal();
-            alert(`${selectedPlan} Plan activated successfully! Your $${amount} will double in 10 days.`);
-        }
-
-        function requestWithdrawal() {
-            const amount = parseFloat(document.getElementById('withdrawAmount').value);
-            
-            if (isNaN(amount) {
-                alert('Please enter a valid amount');
-                return;
-            }
-
-            if (amount > currentUser.data.balance) {
-                alert('Insufficient balance');
-                return;
-            }
-
-            const withdrawal = {
-                amount: amount,
-                date: new Date().toLocaleString(),
-                status: 'Pending'
-            };
-
-            currentUser.data.withdrawals.push(withdrawal);
-            localStorage.setItem('users', JSON.stringify(users));
-            
-            document.getElementById('withdrawMessage').textContent = `Withdrawal request of $${amount} submitted!`;
-            document.getElementById('withdrawAmount').value = '';
-            updateUI();
-        }
-
-        function approveAllWithdrawals() {
-            if (!currentUser.isAdmin) return;
-
-            let totalApproved = 0;
-            currentUser.data.withdrawals.forEach(w => {
-                if (w.status === 'Pending') {
-                    w.status = 'Approved';
-                    totalApproved += w.amount;
-                }
-            });
-
-             // Update all users' withdrawals
-            users.forEach(user => {
-                user.data.withdrawals.forEach(w => {
-                    if (w.status === 'Pending') {
-                        w.status = 'Approved';
-                        user.data.totalWithdrawn += w.amount;
-                    }
-                });
-            });
-
-            localStorage.setItem('users', JSON.stringify(users));
-            renderAdminWithdrawals();
-            alert(`Approved all pending withdrawals (Total: $${totalApproved})`);
-        }
-
-        // UI Update Functions
-        function updateUI() {
-            // Update balance
-            document.getElementById('currentBalance').textContent = currentUser.data.balance.toFixed(2);
-            
-            // Update profile
-            document.getElementById('profileUsername').textContent = currentUser.username;
-            document.getElementById('profileEmail').textContent = currentUser.email;
-            document.getElementById('profilePlan').textContent = currentUser.data.activePlan;
-            document.getElementById('totalInvested').textContent = currentUser.data.totalInvested.toFixed(2);
-            document.getElementById('totalWithdrawn').textContent = currentUser.data.totalWithdrawn.toFixed(2);
-            
-            // Update transactions if on that tab
-            if (document.getElementById('transactions').classList.contains('active')) {
-                renderTransactions();
-            }
-        }
-
-        function renderTransactions() {
-            const container = document.getElementById('transactionList');
-            container.innerHTML = '';
-            
-            if (currentUser.data.transactions.length === 0) {
-                container.innerHTML = '<p>No transactions yet</p>';
-                return;
-            }
-
-            currentUser.data.transactions.forEach(tx => {
-                const txElement = document.createElement('div');
-                txElement.className = 'transaction-item';
-                txElement.innerHTML = `
-                    <p><strong>${tx.type}</strong> - ${tx.plan} Plan</p>
-                    <p>Amount: $${tx.amount.toFixed(2)}</p>
-                    <p>Date: ${tx.date}</p>
-                    <p>Status: ${tx.status}</p>
-                `;
-                container.appendChild(txElement);
-            });
-        }
-
-        function renderAdminWithdrawals() {
-            if (!currentUser.isAdmin) return;
-
-            const container = document.getElementById('adminWithdrawals');
-            container.innerHTML = '';
-            
-            // Collect all withdrawals from all users
-            let allWithdrawals = [];
-            users.forEach(user => {
-                user.data.withdrawals.forEach(w => {
-                    allWithdrawals.push({
-                        username: user.username,
-                        amount: w.amount,
-                        date: w.date,
-                        status: w.status
-                    });
-                });
-            });
-
-            if (allWithdrawals.length === 0) {
-                container.innerHTML = '<p>No withdrawal requests</p>';
-                return;
-            }
-
-            // Sort by date (newest first)
-            allWithdrawals.sort((a, b) => new Date(b.date) - new Date(a.date));
-
-            allWithdrawals.forEach(w => {
-                const wElement = document.createElement('div');
-                wElement.className = 'admin-item';
-                wElement.innerHTML = `
-                    <div>
-                        <p><strong>${w.username}</strong> - $${w.amount.toFixed(2)}</p>
-                        <p>${w.date} - Status: ${w.status}</p>
-                    </div>
-                `;
-                container.appendChild(wElement);
-            });
-        }
-
-        // Initialize
+        // Initial check for users in localStorage (for demo)
         if (users.length === 0) {
-            // Create default admin user
-            const adminUser = {
-                username: 'admin',
-                email: 'admin@investment.com',
-                password: 'admin123',
-                isAdmin: true,
-                data: new UserData()
-            };
-            users.push(adminUser);
+            // Add a demo user for testing
+            users.push({
+                username: "demo",
+                email: "demo@baloch.com",
+                password: "demo123",
+                joined: new Date().toLocaleDateString(),
+                activePlan: null,
+                transactions: []
+            });
             localStorage.setItem('users', JSON.stringify(users));
         }
     </script>
