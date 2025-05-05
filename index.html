@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>SIM Data Checker - BLACK WORLD</title>
+  <title>BLACK WORLD - SIM Data Checker</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -12,52 +12,30 @@
       text-align: center;
       padding: 20px;
     }
-
-    #searchBox {
-      margin-top: 50px;
-    }
-
-    input[type="text"] {
+    #searchInput {
       padding: 10px;
-      font-size: 18px;
+      font-size: 16px;
       width: 250px;
-      border: 2px solid #0f0;
-      background: #111;
-      color: #0f0;
     }
-
-    button {
+    #searchBtn {
       padding: 10px 20px;
-      font-size: 18px;
+      font-size: 16px;
       background-color: #0f0;
       color: #000;
       border: none;
       cursor: pointer;
-      margin-left: 10px;
     }
-
-    .results {
-      margin-top: 30px;
+    .result-card {
       display: none;
-    }
-
-    .results.show {
-      display: block;
-    }
-
-    .data-item {
-      margin: 10px 0;
-    }
-
-    .share-buttons {
       margin-top: 20px;
-      display: none;
+      background-color: #111;
+      padding: 20px;
+      border: 1px solid #0f0;
+      border-radius: 5px;
     }
-
-    .share-buttons.show {
+    .show {
       display: block;
     }
-
     .error {
       color: red;
       margin-top: 10px;
@@ -65,57 +43,67 @@
   </style>
 </head>
 <body>
-  <h1>BLACK WORLD SIM DATA CHECKER</h1>
 
-  <div id="searchBox">
-    <input type="text" id="searchInput" placeholder="Enter Number (e.g. 03001234567)" />
-    <button id="searchBtn">Search</button>
-    <div class="error" id="errorMsg"></div>
-  </div>
+  <h1>BLACK WORLD</h1>
+  <p>Live SIM Data Checker</p>
 
-  <div class="results" id="results">
-    <div class="data-item">Mobile Number: <span id="mobileNumber"></span></div>
-    <div class="data-item">Name: <span id="name"></span></div>
-    <div class="data-item">CNIC: <span id="cnic"></span></div>
-    <div class="data-item">Address: <span id="address"></span></div>
-    <div class="data-item">Operator: <span id="operator"></span></div>
-  </div>
+  <input type="text" id="searchInput" placeholder="Enter SIM Number (03001234567)" />
+  <button id="searchBtn">Search</button>
 
-  <div class="share-buttons" id="shareButtons">
-    <button onclick="alert('Shared!')">Share</button>
+  <div class="error" id="errorMsg"></div>
+
+  <div class="result-card" id="results">
+    <p><strong>Number:</strong> <span id="mobileNumber">---</span></p>
+    <p><strong>Name:</strong> <span id="name">---</span></p>
+    <p><strong>CNIC:</strong> <span id="cnic">---</span></p>
+    <p><strong>Address:</strong> <span id="address">---</span></p>
+    <p><strong>Operator:</strong> <span id="operator">---</span></p>
   </div>
 
   <script>
-    document.getElementById('searchBtn').addEventListener('click', function() {
+    document.getElementById('searchBtn').addEventListener('click', function () {
       const number = document.getElementById('searchInput').value.trim();
       const resultsDiv = document.getElementById('results');
       const errorMsg = document.getElementById('errorMsg');
-      const shareButtons = document.getElementById('shareButtons');
 
-      // Basic validation
       if (!/^03[0-9]{9}$/.test(number)) {
         errorMsg.textContent = "Invalid number format. Use 03001234567 format.";
         resultsDiv.classList.remove("show");
-        shareButtons.classList.remove("show");
         return;
       }
 
       errorMsg.textContent = "";
       resultsDiv.classList.add("show");
-      shareButtons.classList.remove("show");
 
-      // Simulated API delay
-      setTimeout(() => {
-        // Fake Data
-        document.getElementById('mobileNumber').textContent = number;
-        document.getElementById('name').textContent = "Ali Khan";
-        document.getElementById('cnic').textContent = "35202-1234567-1";
-        document.getElementById('address').textContent = "Lahore, Punjab";
-        document.getElementById('operator').textContent = "Zong";
+      // Reset fields before fetching
+      document.getElementById('mobileNumber').textContent = number;
+      document.getElementById('name').textContent = "Loading...";
+      document.getElementById('cnic').textContent = "...";
+      document.getElementById('address').textContent = "...";
+      document.getElementById('operator').textContent = "...";
 
-        shareButtons.classList.add("show");
-      }, 1000);
+      fetch(`https://blackworld-sim-api.vercel.app/sim-api?num=${number}`)
+        .then(response => response.json())
+        .then(data => {
+          if (data && data.name) {
+            document.getElementById('name').textContent = data.name;
+            document.getElementById('cnic').textContent = data.cnic;
+            document.getElementById('address').textContent = data.address;
+            document.getElementById('operator').textContent = data.operator;
+          } else {
+            document.getElementById('name').textContent = "Not Found";
+            document.getElementById('cnic').textContent = "Not Found";
+            document.getElementById('address').textContent = "Not Found";
+            document.getElementById('operator').textContent = "Not Found";
+          }
+        })
+        .catch(error => {
+          console.error('API Error:', error);
+          errorMsg.textContent = "Something went wrong. Please try again.";
+          resultsDiv.classList.remove("show");
+        });
     });
   </script>
+
 </body>
 </html>
