@@ -1,193 +1,228 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>BLACK WORLD | SIM DATA</title>
-  <!-- Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
-  <!-- Font Awesome -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <!-- Animate.css -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Pak Sim Data</title>
   <style>
-    /* === YOUR EXISTING 800+ LINES OF CSS === */
-    :root {
-      --primary: #ff4d4d;
-      --secondary: #00f7ff;
-      --dark: #0a0a1a;
-      --light: #f0f0f0;
-      --gradient: linear-gradient(135deg, #ff4d4d 0%, #0066ff 100%);
-    }
-    * {
+    @import url('https://fonts.googleapis.com/css2?family=Bilbo&family=Bonheur+Royale&family=Foldit&family=Grape+Nuts&family=Iceberg&family=Neonderthaw&family=Stick+No+Bills&display=swap');
+
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(90deg, #141e30, #243b55);
+      background-size: 400% 400%;
+      animation: backgroundAnimate 8s infinite;
       margin: 0;
       padding: 0;
-      box-sizing: border-box;
-      font-family: 'Poppins', sans-serif;
-    }
-    body {
-      background-color: var(--dark);
-      color: var(--light);
-      background-image: 
-        radial-gradient(circle at 10% 20%, rgba(255, 77, 77, 0.1) 0%, transparent 20%),
-        radial-gradient(circle at 90% 80%, rgba(0, 247, 255, 0.1) 0%, transparent 20%);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
       min-height: 100vh;
-      overflow-x: hidden;
     }
-    /* ... (ALL YOUR EXISTING CSS REMAINS EXACTLY THE SAME) ... */
+
+    @keyframes backgroundAnimate {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .container {
+      background: linear-gradient(145deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05));
+      border-radius: 15px;
+      box-shadow: 0 0 30px rgba(0, 255, 255, 0.3);
+      padding: 25px;
+      width: 100%;
+      max-width: 400px;
+      text-align: center;
+      color: white;
+    }
+
+    h1 {
+      font-family: 'Bilbo', cursive;
+      font-size: 38px;
+      margin-bottom: 20px;
+      text-shadow: 0 0 10px rgba(255,255,255,0.8);
+    }
+
+    input[type="text"] {
+      width: 80%;
+      padding: 12px;
+      border: 2px solid #fff;
+      border-radius: 10px;
+      background: rgba(255,255,255,0.1);
+      color: white;
+      margin: 10px 0;
+      font-size: 16px;
+    }
+
+    button {
+      background: rgba(255, 0, 0, 0.8);
+      color: white;
+      padding: 10px 15px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+      margin-top: 10px;
+      width: 50%;
+      animation: buttonGlow 2s infinite alternate;
+      font-family: 'Iceberg', cursive;
+    }
+
+    @keyframes buttonGlow {
+      0% { box-shadow: 0 0 10px rgba(255, 0, 0, 0.5); }
+      100% { box-shadow: 0 0 20px rgba(255, 0, 0, 1); }
+    }
+
+    .result {
+      margin-top: 20px;
+      background: rgba(0,0,0,0.7);
+      padding: 20px;
+      border-radius: 15px;
+      font-size: 14px;
+      text-align: left;
+      white-space: pre-line;
+      display: none;
+      font-family: 'Foldit', cursive;
+    }
+
+    .result .plain {
+      font-family: sans-serif !important;
+    }
+
+    .share-btn {
+      margin-top: 10px;
+      background: linear-gradient(90deg, #25D366, #128C7E);
+      box-shadow: 0 0 10px #25D366;
+      color: white;
+      display: none;
+      font-family: 'Stick No Bills', sans-serif;
+    }
+
+    .footer {
+      margin-top: 50px;
+      padding: 20px;
+      text-align: center;
+      background: #111;
+      box-shadow: 0 -5px 20px #0ff;
+      width: 100%;
+    }
+
+    .footer h2 {
+      font-family: 'Neonderthaw', cursive;
+      font-size: 1.5rem;
+      color: #0ff;
+      text-shadow: 0 0 10px #0ff;
+      margin-bottom: 10px;
+    }
+
+    .social-links a {
+      display: inline-block;
+      margin: 5px;
+      padding: 10px 15px;
+      color: #fff;
+      background: #0ff;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: bold;
+      box-shadow: 0 0 15px #0ff;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      font-family: 'Grape Nuts', cursive;
+    }
+
+    .social-links a:hover {
+      transform: scale(1.1);
+      box-shadow: 0 0 25px #0ff;
+      background: #08f;
+    }
+
+    .developer {
+      margin-top: 15px;
+      font-size: 0.9rem;
+      color: yellow;
+    }
+
+    .developer span {
+      display: block;
+      font-size: 1.8rem;
+      font-family: 'Bonheur Royale', cursive;
+      color: red;
+      text-shadow: 0 0 10px red, 0 0 20px red;
+      margin-top: 5px;
+    }
   </style>
 </head>
 <body>
-  <!-- === YOUR EXISTING HTML STRUCTURE === -->
-  <header>
-    <div class="logo">
-      <i class="fas fa-sim-card" style="font-size: 2rem; color: var(--primary);"></i>
-      <span class="logo-text">BLACK WORLD</span>
+  <div class="container">
+    <h1>PAK SIM DATA</h1>
+    <input type="text" id="number" placeholder="Enter mobile number" required />
+    <button onclick="fetchData()">Search</button>
+    <div id="responseBox" class="result"></div>
+    <button id="shareButton" class="share-btn" onclick="shareWhatsApp()">📲 Share on WhatsApp</button>
+  </div>
+
+  <div class="footer">
+    <h2>Join Our Channels</h2>
+    <div class="social-links">
+      <a href="https://t.me/TECHBYHUZII" target="_blank">Telegram</a>
+      <a href="https://whatsapp.com/channel/0029VaqyldOC6ZvZ6uSVmg2q" target="_blank">WhatsApp Channel</a>
+      <a href="https://wa.me/923058190234" target="_blank">WhatsApp Me</a>
     </div>
-    <nav class="nav-links">
-      <a href="#home">Home</a>
-      <a href="#features">Features</a>
-      <a href="https://whatsapp.com/channel/0029VaqyldOC6ZvZ6uSVmg2q" target="_blank">Channel</a>
-      <a href="https://wa.me/923058190234" target="_blank">Contact</a>
-    </nav>
-  </header>
+    <div class="developer">
+      DEVELOPER:
+      <span>BLACK WORLD OFFICIAL</span>
+    </div>
+  </div>
 
-  <section class="hero" id="home">
-    <!-- ... (YOUR EXISTING HERO SECTION) ... -->
-  </section>
-
-  <section class="features" id="features">
-    <!-- ... (YOUR EXISTING FEATURES SECTION) ... -->
-  </section>
-
-  <footer>
-    <!-- ... (YOUR EXISTING FOOTER) ... -->
-  </footer>
-
-  <!-- === UPDATED SCRIPT SECTION === -->
   <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      const searchBtn = document.getElementById('searchBtn');
-      const searchInput = document.getElementById('searchInput');
-      const results = document.getElementById('results');
-      const errorMsg = document.getElementById('errorMsg');
-      const shareButtons = document.getElementById('shareButtons');
+    async function fetchData() {
+      const number = document.getElementById("number").value.trim();
+      const responseBox = document.getElementById("responseBox");
+      const shareButton = document.getElementById("shareButton");
 
-      // Result elements
-      const mobileNumber = document.getElementById('mobileNumber');
-      const name = document.getElementById('name');
-      const cnic = document.getElementById('cnic');
-      const address = document.getElementById('address');
-      const operator = document.getElementById('operator');
+      if (!number) {
+        alert("Please enter a phone number.");
+        return;
+      }
 
-      searchBtn.addEventListener('click', fetchSimData);
-      searchInput.addEventListener('keypress', function(e) {
-        if (e.key === 'Enter') fetchSimData();
-      });
+      const url = `https://api.allorigins.win/get?url=${encodeURIComponent(`https://blackworld-sim-api.vercel.app?num=${number}`)}`;
 
-      async function fetchSimData() {
-        const number = searchInput.value.trim();
-        
-        // Validate number
-        if (!number || number.length !== 11 || !number.startsWith('03')) {
-          showError('Please enter a valid Pakistan mobile number (e.g., 03001234567)');
-          return;
+      try {
+        const res = await fetch(url);
+        const json = await res.json();
+        const apiData = JSON.parse(json.contents);
+
+        if (apiData.status === "success" && Array.isArray(apiData.data) && apiData.data.length > 0) {
+          const user = apiData.data[0];
+          const content = `
+📞 Mobile: <span class="plain">${user.Mobile || "Not found -contact us 923058190234"}</span>
+👤 Name: ${user.Name || "Not found - contact us 923058190234 "}
+🆔 CNIC: <span class="plain">${user.CNIC || "Not found-contact us 923058190234"}</span>
+📍 Address: ${user.Address || "Not found- contact us 923058190234"}
+📶 Operator: ${user.Operator || "Not found- contact us 923058190234"}
+          `;
+          responseBox.innerHTML = content;
+          responseBox.style.display = "block";
+          shareButton.style.display = "inline-block";
+        } else {
+          responseBox.innerHTML = `<p style="color: yellow;">Data Not Found</p>`;
+          responseBox.style.display = "block";
+          shareButton.style.display = "none";
         }
-
-        // Show loading state
-        searchBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Searching...';
-        searchBtn.disabled = true;
-        errorMsg.textContent = '';
-        results.classList.remove('show');
-        shareButtons.classList.remove('show');
-        
-        try {
-          // TRY DIRECT API CALL FIRST
-          let data = await tryDirectAPICall(number);
-          
-          // IF DIRECT CALL FAILS, TRY PROXY METHOD
-          if (!data || !data.status) {
-            data = await tryProxyAPICall(number);
-          }
-          
-          // IF STILL NO DATA, SHOW ERROR
-          if (!data || !data.status) {
-            throw new Error('Server not responding. Please try again later.');
-          }
-          
-          // DISPLAY RESULTS
-          displayResults(data);
-          
-        } catch (error) {
-          console.error('Error:', error);
-          showError(error.message || 'Failed to fetch data');
-        } finally {
-          searchBtn.innerHTML = '<i class="fas fa-search"></i> Check SIM Data';
-          searchBtn.disabled = false;
-        }
+      } catch (e) {
+        responseBox.innerHTML = `<p style="color: red;">Error fetching data.</p>`;
+        responseBox.style.display = "block";
+        shareButton.style.display = "none";
       }
+    }
 
-      async function tryDirectAPICall(number) {
-        try {
-          const response = await fetch(`https://blackworld-sim-api.vercel.app/sim-api?num=${number}`);
-          if (!response.ok) throw new Error('Direct API failed');
-          return await response.json();
-        } catch (error) {
-          console.log('Direct API failed, trying proxy...');
-          return null;
-        }
-      }
-
-      async function tryProxyAPICall(number) {
-        try {
-          const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
-          const apiUrl = `https://blackworld-sim-api.vercel.app/sim-api?num=${number}`;
-          const response = await fetch(proxyUrl + apiUrl, {
-            headers: {
-              'X-Requested-With': 'XMLHttpRequest'
-            }
-          });
-          return await response.json();
-        } catch (error) {
-          console.log('Proxy also failed');
-          return null;
-        }
-      }
-
-      function displayResults(data) {
-        // Handle different response formats
-        const simData = data.data?.[0] || data;
-        
-        mobileNumber.textContent = simData.Mobile || searchInput.value.trim();
-        name.textContent = simData.Name || 'Not available';
-        cnic.textContent = simData.CNIC || 'Not available';
-        address.textContent = simData.Address || 'Not available';
-        operator.textContent = simData.Operator || 'Not available';
-        
-        // Prepare share message
-        const shareText = `📱 SIM Data Results:\n\n` +
-                         `Number: ${mobileNumber.textContent}\n` +
-                         `Name: ${name.textContent}\n` +
-                         `CNIC: ${cnic.textContent}\n` +
-                         `Address: ${address.textContent}\n` +
-                         `Operator: ${operator.textContent}\n\n` +
-                         `Checked via BLACK WORLD SIM Database`;
-        
-        // Update share buttons
-        document.getElementById('whatsappShare').href = `https://wa.me/?text=${encodeURIComponent(shareText)}`;
-        document.getElementById('telegramShare').href = `https://t.me/share/url?url=${encodeURIComponent(window.location.href)}&text=${encodeURIComponent(shareText)}`;
-        
-        // Show results
-        results.classList.add('show');
-        shareButtons.classList.add('show');
-      }
-
-      function showError(message) {
-        errorMsg.textContent = message;
-        results.classList.remove('show');
-        shareButtons.classList.remove('show');
-      }
-    });
+    function shareWhatsApp() {
+      const responseBox = document.getElementById("responseBox");
+      const text = encodeURIComponent(responseBox.innerText);
+      const url = `https://wa.me/?text=${text}`;
+      window.open(url, '_blank');
+    }
   </script>
 </body>
 </html>
